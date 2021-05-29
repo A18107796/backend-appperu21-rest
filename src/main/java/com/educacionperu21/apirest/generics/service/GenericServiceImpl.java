@@ -13,39 +13,39 @@ public class GenericServiceImpl<E, R extends PagingAndSortingRepository<E, Key>,
 		implements GenericService<E, Key> {
 
 	@Autowired
-	protected R repository;
+	protected R dao;
 
 	@Override
 	@Transactional(readOnly = true)
 	public Iterable<E> findAll() {
-		// TODO Auto-generated method stub
-		return repository.findAll();
+		// TODO Auto-generated method stub 
+		return dao.findAll();
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Optional<E> findById(Key id) {
 		// TODO Auto-generated method stub
-		return repository.findById(id);
+		return dao.findById(id);
 	}
 
 	@Override
 	@Transactional
 	public E save(E alumno) {
 		// TODO Auto-generated method stub
-		return repository.save(alumno);
+		return dao.save(alumno);
 	}
 
 	@Override
 	@Transactional
 	public void deleteById(Key id) {
 		// TODO Auto-generated method stub
-		repository.deleteById(id);
+		dao.deleteById(id);
 	}
 
 	@Override
 	public Page<E> findAll(Pageable pageable) {
-		return repository.findAll(pageable);
+		return dao.findAll(pageable);
 	}
 
 }

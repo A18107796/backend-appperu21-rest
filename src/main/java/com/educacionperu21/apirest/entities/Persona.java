@@ -15,6 +15,7 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
@@ -68,6 +69,12 @@ public abstract class Persona {
 	@JoinColumn(name = "idDistrito")
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Distrito distrito;
+
+	@NotEmpty(message = "El campo esta vacio")
+	@Email(message = "El email no tiene un formato correcto.")
+	@Size(min = 0, message = "El campo minimo es 0")
+	@Column(nullable = false, unique = true)
+	private String email;
 
 	@NotNull(message = "Usted debe seleccionar un tipo de documento")
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -198,4 +205,13 @@ public abstract class Persona {
 	public void setDistrito(Distrito distrito) {
 		this.distrito = distrito;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 }
