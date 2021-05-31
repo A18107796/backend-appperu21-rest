@@ -33,11 +33,11 @@ public abstract class Persona {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@NotEmpty(message = "El campo esta vacio")
+	@NotEmpty(message = MessagesValidation.CAMPO_VACIO)
 	@Column(nullable = false)
 	private String nombres;
 
-	@NotEmpty(message = "El campo esta vacio")
+	@NotEmpty(message = MessagesValidation.CAMPO_VACIO)
 	@Column(nullable = false)
 	private String apellidos;
 
@@ -49,7 +49,7 @@ public abstract class Persona {
 		this.direccion = direccion;
 	}
 
-	@NotEmpty(message = "El campo esta vacio")
+	@NotEmpty(message = MessagesValidation.CAMPO_VACIO)
 	@Size(min = 8, max = 12, message = "El campo minimo es 8")
 	@Column(nullable = false, unique = true, length = 12)
 	private String num_doc;
