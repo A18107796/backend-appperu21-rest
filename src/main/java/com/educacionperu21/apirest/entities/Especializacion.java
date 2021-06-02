@@ -35,7 +35,7 @@ public class Especializacion implements Serializable {
 
 	@NotNull(message = "Usted debe seleccionar un tipo de especializacion")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idEspecializacion")
+	@JoinColumn(name = "idTipoEspecializacion")
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Especializacion_Tipo tipo_especializacion;
 
