@@ -1,4 +1,4 @@
-package com.educacionperu21.apirest.rest.controller;
+package com.educacionperu21.apirest.controller;
 
 import java.util.HashMap;
 import java.util.Map;
