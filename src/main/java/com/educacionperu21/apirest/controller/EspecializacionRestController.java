@@ -25,9 +25,9 @@ import com.educacionperu21.apirest.exceptions.NotFoundException;
 import com.educacionperu21.apirest.generics.controller.GenericController;
 import com.educacionperu21.apirest.services.IEspecializacionService;
 
-@CrossOrigin(origins = PathsController.PATH_ANGULAR_ORIGIN)
+@CrossOrigin(origins = ControllerPaths.PATH_ANGULAR_ORIGIN)
 @RestController
-@RequestMapping(path = PathsController.PATH_ESPECIALIZACION)
+@RequestMapping(path = ControllerPaths.PATH_ESPECIALIZACION)
 public class EspecializacionRestController
 		extends GenericController<Especializacion, Integer, IEspecializacionService> {
 

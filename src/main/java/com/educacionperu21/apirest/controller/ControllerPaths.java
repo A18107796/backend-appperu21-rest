@@ -1,7 +1,7 @@
 package com.educacionperu21.apirest.controller;
 
 
-public class PathsController {
+public abstract class ControllerPaths {
 
 	public static final String MAIN_PATH = "/peru21/api";
 

@@ -21,7 +21,7 @@ import com.educacionperu21.apirest.generics.controller.GenericController;
 import com.educacionperu21.apirest.services.IEmpleadoService;
 
 @RestController
-@RequestMapping(path = PathsController.PATH_EMPLEADO)
+@RequestMapping(path = ControllerPaths.PATH_EMPLEADO)
 public class EmpleadoRestController extends GenericController<Empleado, Integer, IEmpleadoService> {
 
 	public EmpleadoRestController() {

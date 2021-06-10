@@ -41,14 +41,6 @@ public abstract class Persona {
 	@Column(nullable = false)
 	private String apellidos;
 
-	public String getDireccion() {
-		return direccion;
-	}
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
-
 	@NotEmpty(message = MessagesValidation.CAMPO_VACIO)
 	@Size(min = 8, max = 12, message = "El campo minimo es 8")
 	@Column(nullable = false, unique = true, length = 12)
@@ -212,6 +204,14 @@ public abstract class Persona {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 
 }

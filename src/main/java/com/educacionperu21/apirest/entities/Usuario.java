@@ -10,9 +10,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -27,13 +30,20 @@ public class Usuario implements Serializable {
 	@Email(message = "Ingrese un email valido")
 	private String email;
 
-	@Column(length = 20)
+	@Column(length = 60)
+	@JsonIgnoreProperties({ "password" })
 	private String password;
 
 	private boolean enabled;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-	@JsonIgnoreProperties(value = { "empleado", "hibernateLazyInitializer", "handler" }, allowSetters = true)
+	@NotNull(message = "El Usuario debe contener un empleado")
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_empleado")
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	private Empleado empleado;
+
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" }, allowSetters = true)
 	private List<Rol> roles;
 
 	public boolean isEnabled() {
@@ -66,6 +76,22 @@ public class Usuario implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public List<Rol> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Rol> roles) {
+		this.roles = roles;
+	}
+
+	public Empleado getEmpleado() {
+		return empleado;
+	}
+
+	public void setEmpleado(Empleado empleado) {
+		this.empleado = empleado;
 	}
 
 	/**
