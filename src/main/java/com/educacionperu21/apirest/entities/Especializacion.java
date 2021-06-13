@@ -1,7 +1,9 @@
 package com.educacionperu21.apirest.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -10,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -42,6 +45,9 @@ public class Especializacion implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Estado estado;
 
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Curso> cursos;
+
 	public Integer getId() {
 		return id;
 	}
@@ -73,5 +79,27 @@ public class Especializacion implements Serializable {
 	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
+
+	public void addCurso(Curso curso) {
+		this.cursos.add(curso);
+	}
+
+	public void removeCurso(Curso curso) {
+		this.cursos.remove(curso);
+	}
+	
+	public void clearCursos() {
+		this.cursos.clear();
+	}
+
+	public List<Curso> getCursos() {
+		return cursos;
+	}
+
+	public void setCursos(List<Curso> cursos) {
+		this.cursos = cursos;
+	}
+	
+	
 
 }
