@@ -27,11 +27,17 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		http.authorizeRequests()
 		/*.antMatchers(HttpMethod.GET, "")
 				.permitAll()
-				 Cursos */
+				 Especializaciones */
 				.antMatchers(HttpMethod.GET,	"/peru21/api/especializaciones/**").hasAnyRole(Roles.ADMIN.toString(), Roles.EMPLEADO.toString(), Roles.INFORMES.toString())
 				.antMatchers(HttpMethod.POST, 	"/peru21/api/especializaciones/**").hasAnyRole(Roles.ADMIN.toString(), Roles.CORDINACIONACADEMICA.toString())
 				.antMatchers(HttpMethod.PUT, 	"/peru21/api/especializaciones/**").hasAnyRole(Roles.ADMIN.toString(), Roles.CORDINACIONACADEMICA.toString())
 				.antMatchers(HttpMethod.DELETE, "/peru21/api/especializaciones/**").hasAnyRole(Roles.ADMIN.toString())
+				/* Cursos */
+				.antMatchers(HttpMethod.GET,	"/peru21/api/cursos/**").hasAnyRole(Roles.ADMIN.toString(), Roles.EMPLEADO.toString(), Roles.INFORMES.toString())
+				.antMatchers(HttpMethod.POST, 	"/peru21/api/cursos/**").hasAnyRole(Roles.ADMIN.toString(), Roles.CORDINACIONACADEMICA.toString())
+				.antMatchers(HttpMethod.PUT, 	"/peru21/api/cursos/**").hasAnyRole(Roles.ADMIN.toString(), Roles.CORDINACIONACADEMICA.toString())
+				.antMatchers(HttpMethod.DELETE, "/peru21/api/cursos/**").hasAnyRole(Roles.ADMIN.toString())
+				/* Empleadsos */
 				.antMatchers(HttpMethod.GET, 	"/peru21/api/empleados/**").hasAnyRole(Roles.ADMIN.toString(), Roles.SECRETARIA.toString(),Roles.CORDINACIONACADEMICA.toString())
 				.antMatchers(HttpMethod.POST, 	"/peru21/api/empleados/**").hasAnyRole(Roles.ADMIN.toString(), Roles.CORDINACIONACADEMICA.toString(), Roles.SECRETARIA.toString())
 				.antMatchers(HttpMethod.PUT, 	"/peru21/api/empleados/**").hasAnyRole(Roles.ADMIN.toString(), Roles.CORDINACIONACADEMICA.toString(), Roles.SECRETARIA.toString())

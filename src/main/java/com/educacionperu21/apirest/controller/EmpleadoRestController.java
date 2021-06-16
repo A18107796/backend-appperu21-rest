@@ -33,7 +33,7 @@ public class EmpleadoRestController extends GenericController<Empleado, Integer,
 		Map<String, Boolean> response;
 		boolean existsEmail;
 		try {
-			 existsEmail = service.emailExists(email);
+			existsEmail = service.emailExists(email);
 		} catch (Exception e) {
 			throw new InternalServerError(e.getMessage());
 		}
