@@ -1,5 +1,6 @@
 package com.educacionperu21.apirest.exceptions;
 
+import java.net.ConnectException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +37,13 @@ public class ApiGlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(InternalServerError.class)
 	@ResponseBody
 	public ErrorMessage internalServerError(HttpServletRequest request, Exception exception) {
+		return new ErrorMessage(exception, request.getRequestURI());
+	}
+	
+	@ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
+	@ExceptionHandler(ConnectException.class)
+	@ResponseBody
+	public ErrorMessage serviceUnavailable(HttpServletRequest request, ConnectException exception) {
 		return new ErrorMessage(exception, request.getRequestURI());
 	}
 

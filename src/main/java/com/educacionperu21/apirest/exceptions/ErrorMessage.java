@@ -1,5 +1,6 @@
 package com.educacionperu21.apirest.exceptions;
 
+import java.net.ConnectException;
 import java.util.List;
 import java.util.Map;
 
@@ -14,8 +15,12 @@ public class ErrorMessage {
 	private List<?> errors2;
 
 	public ErrorMessage(Exception exception, String path) {
+
 		this.exception = exception.getClass().getSimpleName();
 		this.message = exception.getMessage();
+		if (exception instanceof ConnectException) {
+			this.message = "La base de datos no se encuentra disponible";
+		}
 		this.path = path;
 	}
 
