@@ -14,4 +14,8 @@ abstract class ControllerPaths {
 
 	public static final String PATH_ANGULAR_ORIGIN = "http://localhost:4200";
 
+	protected static final String PATH_ESTUDIANTES = MAIN_PATH + "/estudiantes";
+
+	protected static final String PATH_MATRICULAS = MAIN_PATH + "/matriculas";
+
 }

@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "provincias")
-public class Provincia {
+public class Provincia extends GenericEntityAbstract {
 
 	@Id
 	@Column(name = "id_provincias")

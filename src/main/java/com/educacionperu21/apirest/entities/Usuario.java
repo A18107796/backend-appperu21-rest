@@ -21,11 +21,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "usuarios")
-public class Usuario implements Serializable {
+public class Usuario extends GenericEntityAbstract implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idUsuario;
+	@Column(name = "id_usuario")
+	private Integer id;
 
 	@Email(message = "Ingrese un email valido")
 	private String email;
@@ -54,12 +55,12 @@ public class Usuario implements Serializable {
 		this.enabled = enabled;
 	}
 
-	public Integer getIdUsuario() {
-		return idUsuario;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setIdUsuario(Integer idUsuario) {
-		this.idUsuario = idUsuario;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getEmail() {

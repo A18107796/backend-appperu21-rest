@@ -12,7 +12,7 @@ public class ErrorMessage {
 
 	private String path;
 
-	private List<?> errors2;
+	private List<?> errors;
 
 	public ErrorMessage(Exception exception, String path) {
 
@@ -28,15 +28,15 @@ public class ErrorMessage {
 		this.exception = exception.getClass().getSimpleName();
 		this.message = exception.getMessage();
 		this.path = path;
-		this.errors2 = errors2;
+		this.errors = errors2;
 	}
 
-	public List<?> getErrors2() {
-		return errors2;
+	public List<?> getErrors() {
+		return errors;
 	}
 
-	public void setErrors2(List<?> errors2) {
-		this.errors2 = errors2;
+	public void setErrors(List<?> errors2) {
+		this.errors = errors2;
 	}
 
 	public String getException() {

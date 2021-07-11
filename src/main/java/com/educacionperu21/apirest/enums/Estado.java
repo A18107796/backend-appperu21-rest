@@ -1,8 +1,8 @@
-package com.educacionperu21.apirest.entities;
+package com.educacionperu21.apirest.enums;
 
 public enum Estado {
 
-	ACTIVO("Activo"), INACTIVO("Inactivo"), PENDIENTE("Pendiente");
+	ACTIVO("Activo"), INACTIVO("Inactivo"), PENDIENTE("Pendiente"), ANULADO("Anulado");
 
 	Estado(String nombre) {
 		this.nombre = nombre;
@@ -13,6 +13,5 @@ public enum Estado {
 	public String getNombre() {
 		return nombre;
 	}
-	
-	
+
 }

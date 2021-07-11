@@ -24,11 +24,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.educacionperu21.apirest.entities.GenericEntityAbstract;
 import com.educacionperu21.apirest.exceptions.BadRequestException;
 import com.educacionperu21.apirest.exceptions.NotFoundException;
 import com.educacionperu21.apirest.generics.service.GenericService;
 
-public class GenericController<Entity, Key, Service extends GenericService<Entity, Key>> {
+public class GenericController<Entity extends GenericEntityAbstract, Key, Service extends GenericService<Entity, Key>> {
 
 	@Autowired
 	protected Service service;
@@ -62,6 +63,7 @@ public class GenericController<Entity, Key, Service extends GenericService<Entit
 	@PostMapping
 	public ResponseEntity<?> crear(@Valid @RequestBody Entity entity, BindingResult result) {
 		Entity entityCreated;
+		//entity.setId(null);
 		Map<String, Object> response = new HashMap<>();
 
 		if (result.hasErrors()) {
@@ -79,7 +81,7 @@ public class GenericController<Entity, Key, Service extends GenericService<Entit
 			throw new BadRequestException(errors);
 		}
 		entityCreated = service.save(entity);
-
+		System.out.println(entityCreated.getId());
 		return ResponseEntity.status(HttpStatus.CREATED).body(entityCreated);
 	}
 

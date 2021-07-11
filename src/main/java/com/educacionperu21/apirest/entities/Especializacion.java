@@ -18,11 +18,12 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import com.educacionperu21.apirest.enums.Estado;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "especializaciones")
-public class Especializacion implements Serializable {
+public class Especializacion extends GenericEntityAbstract implements Serializable {
 
 	/**
 	 * 

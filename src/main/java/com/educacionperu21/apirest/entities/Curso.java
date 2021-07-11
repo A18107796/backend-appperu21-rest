@@ -11,15 +11,19 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import com.educacionperu21.apirest.enums.Estado;
+import com.sun.istack.NotNull;
+
 
 @Entity
 @Table(name = "cursos")
-public class Curso implements Serializable {
+public class Curso extends GenericEntityAbstract implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
+	
+	
 	@NotEmpty(message = MessagesValidation.CAMPO_VACIO)
 	private String nombre;
 

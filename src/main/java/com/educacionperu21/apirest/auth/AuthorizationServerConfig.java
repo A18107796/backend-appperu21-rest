@@ -23,47 +23,41 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-	
+
 	@Autowired
 	@Qualifier("authenticationManager")
 	private AuthenticationManager authenticationManager;
-	
+
 	@Autowired
 	private InfoAdicionalToken infoAdicionalToken;
 
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-		
-		security.tokenKeyAccess("permitAll()")
-			.checkTokenAccess("isAuthenticated()");
+
+		security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
 	}
 
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		
-		clients.inMemory().withClient("angularapp")
-			.secret(passwordEncoder.encode("1234"))
-			.scopes("read", "write")
-			.authorizedGrantTypes("password", "refresh_token")
-			.accessTokenValiditySeconds(36000)
-			.refreshTokenValiditySeconds(36000);
+
+		clients.inMemory().withClient("angularapp").secret(passwordEncoder.encode("1234")).scopes("read", "write")
+				.authorizedGrantTypes("password", "refresh_token").accessTokenValiditySeconds(36000)
+				.refreshTokenValiditySeconds(36000);
 	}
 
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-		
+
 		TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
 		tokenEnhancerChain.setTokenEnhancers(Arrays.asList(infoAdicionalToken, accessTokenConverter()));
-		
-		endpoints.authenticationManager(authenticationManager)
-			.tokenStore(tokenStore())
-			.accessTokenConverter(accessTokenConverter())
-			.tokenEnhancer(tokenEnhancerChain);
+
+		endpoints.authenticationManager(authenticationManager).tokenStore(tokenStore())
+				.accessTokenConverter(accessTokenConverter()).tokenEnhancer(tokenEnhancerChain);
 	}
 
 	@Bean
 	public JwtTokenStore tokenStore() {
-		
+
 		return new JwtTokenStore(accessTokenConverter());
 	}
 
@@ -72,9 +66,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
 		jwtAccessTokenConverter.setSigningKey(JwtConfig.RSA_PRIVADA);
 		jwtAccessTokenConverter.setVerifierKey(JwtConfig.RSA_PUBLICA);
-		
+
 		return jwtAccessTokenConverter;
 	}
-	
-	
+
 }

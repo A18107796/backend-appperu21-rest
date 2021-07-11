@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Null;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -71,7 +72,7 @@ public class EspecializacionRestController
 			especializacionDB.setNombre(especializacion.getNombre());
 			especializacionDB.setTipo_especializacion(especializacion.getTipo_especializacion());
 			return ResponseEntity.status(HttpStatus.CREATED).body(this.service.save(especializacionDB));
-			
+
 		} catch (DataAccessException e) {
 			throw new ServiceUnavailableException(e.getMessage());
 		}
@@ -83,7 +84,7 @@ public class EspecializacionRestController
 	}
 
 	@PutMapping("/{id}/save-changes")
-	private ResponseEntity<?> saveChanges(@RequestBody List<Curso> cursos,
+	private ResponseEntity<?> saveChanges(@Null @RequestBody List<Curso> cursos,
 			@PathVariable("id") Integer id_especializacion) {
 		Optional<Especializacion> o = this.service.findById(id_especializacion);
 		if (o.isEmpty()) {
@@ -92,6 +93,30 @@ public class EspecializacionRestController
 		Especializacion espBD = o.get();
 		espBD.clearCursos();
 		cursos.forEach(espBD::addCurso);
+		return ResponseEntity.status(HttpStatus.CREATED).body(this.service.update(espBD));
+	}
+
+	@PutMapping("/{id}/add-cursos")
+	private ResponseEntity<?> addCursos(@Null @RequestBody List<Curso> cursos,
+			@PathVariable("id") Integer id_especializacion) {
+		Optional<Especializacion> o = this.service.findById(id_especializacion);
+		if (o.isEmpty()) {
+			throw new NotFoundException("La/el " + getClassName() + " no existe.");
+		}
+		Especializacion espBD = o.get();
+		cursos.forEach(espBD::addCurso);
+		return ResponseEntity.status(HttpStatus.CREATED).body(this.service.update(espBD));
+	}
+
+	@PutMapping("/{id}/eliminar-curso")
+	private ResponseEntity<?> eliminarCursos(@RequestBody Curso cursos,
+			@PathVariable("id") Integer id_especializacion) {
+		Optional<Especializacion> o = this.service.findById(id_especializacion);
+		if (o.isEmpty()) {
+			throw new NotFoundException("La/el " + getClassName() + " no existe.");
+		}
+		Especializacion espBD = o.get();
+		espBD.removeCurso(cursos);
 		return ResponseEntity.status(HttpStatus.CREATED).body(this.service.update(espBD));
 	}
 

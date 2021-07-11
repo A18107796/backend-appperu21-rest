@@ -16,6 +16,8 @@ import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
@@ -24,10 +26,11 @@ import javax.validation.constraints.Size;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import com.educacionperu21.apirest.enums.Estado;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @MappedSuperclass
-public abstract class Persona {
+public abstract class Persona extends GenericEntityAbstract {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -74,7 +77,7 @@ public abstract class Persona {
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Tipo_Documento tipo_documento;
 
-	@NotNull(message = "Ingresé dirección")
+	@NotEmpty(message = "Ingresé dirección")
 	private String direccion;
 
 	@CreatedDate

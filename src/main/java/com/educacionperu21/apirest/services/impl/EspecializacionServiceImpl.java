@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.educacionperu21.apirest.dao.EmpleadoDAO;
 import com.educacionperu21.apirest.dao.EspecializacionDAO;
 import com.educacionperu21.apirest.entities.Especializacion;
-import com.educacionperu21.apirest.entities.Estado;
+import com.educacionperu21.apirest.enums.Estado;
 import com.educacionperu21.apirest.exceptions.InternalServerError;
 import com.educacionperu21.apirest.exceptions.NotFoundException;
 import com.educacionperu21.apirest.generics.service.GenericServiceImpl;
@@ -39,6 +39,11 @@ public class EspecializacionServiceImpl extends GenericServiceImpl<Especializaci
 	@Transactional
 	public Especializacion update(Especializacion especializacion) {
 		return dao.save(especializacion);
+	}
+
+	@Override
+	public boolean ExistsEspecializacion(Integer id) {
+		return this.dao.existsById(id);
 	}
 
 }

@@ -48,4 +48,9 @@ public class GenericServiceImpl<E, R extends PagingAndSortingRepository<E, Key>,
 		return dao.findAll(pageable);
 	}
 
+	@Override
+	public boolean ExistsEntity(Key id) {
+		return dao.existsById(id);
+	}
+
 }

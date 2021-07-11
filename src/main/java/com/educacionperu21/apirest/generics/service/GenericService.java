@@ -19,4 +19,6 @@ public interface GenericService<T, Key> {
 	
 	public void deleteById(Key id);
 	
+	
+	public boolean ExistsEntity(Key id);
 }
