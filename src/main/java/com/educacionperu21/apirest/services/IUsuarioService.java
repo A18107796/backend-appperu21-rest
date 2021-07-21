@@ -7,4 +7,6 @@ public interface IUsuarioService extends GenericService<Usuario, Integer>{
 	
 	public Usuario findByEmail(String email);
 
+	public Usuario createUser(Usuario usuario);
+
 }

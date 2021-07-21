@@ -11,4 +11,7 @@ public interface EmpleadoDAO extends PagingAndSortingRepository<Empleado, Intege
 
 	@Query(nativeQuery = true, value = "select e.email from empleados e where e.email = ?1")
 	List<String> emailsExists(String email);
+
+	@Query(nativeQuery = true, value = "select e.num_doc from empleados e where e.num_doc = ?1")
+	List<String> dniExists(String dni);
 }

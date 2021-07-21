@@ -15,49 +15,49 @@ import com.educacionperu21.apirest.exceptions.NotFoundException;
 import com.educacionperu21.apirest.services.IUbicacionService;
 
 @Service
-public class UbicacionServiceImpl implements IUbicacionService{
+public class UbicacionServiceImpl implements IUbicacionService {
 
-	@Autowired
-	private DepartamentoDAO daoDepartamento;
-	
-	@Autowired
-	private ProvinciaDAO daoProvincia;
-	
-	@Autowired
-	private DistritoDAO daoDistrito;
-	
-	
-	@Override
-	public List<Departamento> getDepartamentos() {
-		return daoDepartamento.findAll();
-	}
+    @Autowired
+    private DepartamentoDAO daoDepartamento;
 
-	@Override
-	public List<Provincia> getProvincias() {
-		return daoProvincia.findAll();
-	}
+    @Autowired
+    private ProvinciaDAO daoProvincia;
 
-	@Override
-	public List<Distrito> getDistritos() {
-		return daoDistrito.findAll();
-	}
+    @Autowired
+    private DistritoDAO daoDistrito;
 
-	@Override
-	public List<Provincia> getProvinciasByIDDep(Integer id) {
-		List<Provincia> provincias = daoProvincia.findProvinciaByIDDep(id);
-		if(provincias == null || provincias.size() == 0) {
-			throw new NotFoundException("No existen provincias en el ID indicado");
-		}
-		return provincias;
-	}
 
-	@Override
-	public List<Distrito> getDistritoByIDProv(Integer id) {
-		List<Distrito> distritos = daoDistrito.findDistritoBYIDProv(id);
-		if(distritos == null || distritos.size() == 0) {
-			throw new NotFoundException("No existen distritos en el ID indicado");
-		}
-		return distritos;
-	}
-	
+    @Override
+    public List<Departamento> getDepartamentos() {
+        return daoDepartamento.findAll();
+    }
+
+    @Override
+    public List<Provincia> getProvincias() {
+        return daoProvincia.findAll();
+    }
+
+    @Override
+    public List<Distrito> getDistritos() {
+        return daoDistrito.findAll();
+    }
+
+    @Override
+    public List<Provincia> getProvinciasByIDDep(Integer id) {
+        List<Provincia> provincias = daoProvincia.findProvinciaByIDDep(id);
+        if (provincias == null || provincias.size() == 0) {
+            throw new NotFoundException("No existen provincias en el ID indicado");
+        }
+        return provincias;
+    }
+
+    @Override
+    public List<Distrito> getDistritoByIDProv(Integer id) {
+        List<Distrito> distritos = daoDistrito.findDistritoBYIDProv(id);
+        if (distritos == null || distritos.size() == 0) {
+            throw new NotFoundException("No existen distritos en el ID indicado");
+        }
+        return distritos;
+    }
+
 }

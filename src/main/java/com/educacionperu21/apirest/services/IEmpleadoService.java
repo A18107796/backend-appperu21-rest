@@ -6,4 +6,6 @@ import com.educacionperu21.apirest.generics.service.GenericService;
 public interface IEmpleadoService extends GenericService<Empleado, Integer> {
 
 	boolean emailExists(String email);
+
+	boolean dniExists(String email);
 }

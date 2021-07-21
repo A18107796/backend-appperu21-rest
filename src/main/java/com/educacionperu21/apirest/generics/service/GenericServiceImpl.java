@@ -2,6 +2,7 @@ package com.educacionperu21.apirest.generics.service;
 
 import java.util.Optional;
 
+import com.educacionperu21.apirest.entities.GenericEntityAbstract;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,7 +10,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-public class GenericServiceImpl<E, R extends PagingAndSortingRepository<E, Key>, Key>
+public class GenericServiceImpl<E extends GenericEntityAbstract, R extends PagingAndSortingRepository<E, Key>, Key>
 		implements GenericService<E, Key> {
 
 	@Autowired

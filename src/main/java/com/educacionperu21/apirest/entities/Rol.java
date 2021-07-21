@@ -13,45 +13,53 @@ import javax.persistence.Table;
 @Table(name = "roles")
 public class Rol implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@Column(unique = true)
-	private String nombre;
+    @Column(unique = true)
+    private String nombre;
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getNombre() {
-		return nombre;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
+    public Rol() {
 
-		if (!(obj instanceof Rol)) {
-			return false;
-		}
-		Rol a = (Rol) obj;
+    }
 
-		return this.id != null && this.id.equals(a.getId());
-	}
+    public Rol(Integer id) {
+        this.id = (long) id;
+    }
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof Rol)) {
+            return false;
+        }
+        Rol a = (Rol) obj;
+
+        return this.id != null && this.id.equals(a.getId());
+    }
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 }
