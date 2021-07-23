@@ -65,7 +65,7 @@ public class EstudianteController extends GenericController<Estudiante, Integer,
 		estudianteDB.setDireccion(estudiante.getDireccion());
 		estudianteDB.setTipo_documento(estudiante.getTipo_documento());
 		estudianteDB.setEmail(estudiante.getEmail());
-
+		estudianteDB.setTelefono(estudiante.getTelefono());
 		return ResponseEntity.status(HttpStatus.CREATED).body(this.service.save(estudianteDB));
 
 	}

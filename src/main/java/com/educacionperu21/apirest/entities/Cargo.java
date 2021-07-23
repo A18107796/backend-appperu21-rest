@@ -36,6 +36,14 @@ public class Cargo extends GenericEntityAbstract implements Serializable{
 		this.nombre = nombre;
 	}
 
+	@Override
+	public String toString() {
+		return "Cargo{" +
+				"id=" + id +
+				", nombre='" + nombre + '\'' +
+				'}';
+	}
+
 	/**
 	 * 
 	 */

@@ -107,8 +107,9 @@ public class EmpleadoRestController extends GenericController<Empleado, Integer,
         empleadoDB.setCargo(empleado.getCargo());
         empleadoDB.setTipo_documento(empleado.getTipo_documento());
         empleadoDB.setEmail(empleado.getEmail());
+        empleadoDB.setTelefono(empleado.getTelefono());
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.service.save(empleadoDB));
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.service.update(empleadoDB));
 
     }
 }

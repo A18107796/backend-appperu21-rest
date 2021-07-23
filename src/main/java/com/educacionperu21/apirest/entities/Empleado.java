@@ -42,7 +42,12 @@ public class Empleado extends Persona {
 		this.cargo = cargo;
 	}
 
-	
-	
 
+	@Override
+	public String toString() {
+		return super.toString() +  " Empleado{" +
+				"usuario=" + usuario +
+				", cargo=" + cargo +
+				'}';
+	}
 }

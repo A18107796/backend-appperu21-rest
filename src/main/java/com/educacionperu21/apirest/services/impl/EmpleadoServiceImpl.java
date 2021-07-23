@@ -1,6 +1,7 @@
 package com.educacionperu21.apirest.services.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.educacionperu21.apirest.entities.Estudiante;
 import com.educacionperu21.apirest.entities.Usuario;
@@ -32,16 +33,19 @@ public class EmpleadoServiceImpl extends GenericServiceImpl<Empleado, EmpleadoDA
     @Transactional
     public Empleado save(Empleado alumno) {
         System.out.println("HOLA");
+        System.out.println(alumno.toString());
         Empleado empleadoBD = this.dao.save(alumno);
-        empleadoBD = this.findById(empleadoBD.getId()).get();
+        Optional<Empleado> e = dao.findById(empleadoBD.getId());
+        empleadoBD = e.get();
+
         Usuario usuario = new Usuario();
-        if(empleadoBD.getCargo().getNombre().equalsIgnoreCase("SECRETARIA")){
+        if(empleadoBD.getCargo().getId() == 1){
             usuario.setRoles(UsuarioService.CARGO_SECRETARIA);
-        }else if(empleadoBD.getCargo().getNombre().equalsIgnoreCase(("ENCARGADO DE INFORMES"))){
+        }else if(empleadoBD.getCargo().getId() == 2){
             usuario.setRoles(UsuarioService.CARGO_INFORMES);
-        }else if(empleadoBD.getCargo().getNombre().equalsIgnoreCase("CAJERO")){
+        }else if(empleadoBD.getCargo().getId() == 3){
             usuario.setRoles(UsuarioService.CARGO_CAJA);
-        }else if(empleadoBD.getCargo().getNombre().equalsIgnoreCase("COORDINADOR ACADEMICO")){
+        }else if(empleadoBD.getCargo().getId() == 4){
             usuario.setRoles(UsuarioService.CARGO_CORDINACIONACADEMICA);
         }else{
             usuario.setRoles(UsuarioService.CARGO_EMPLADO);
@@ -72,6 +76,11 @@ public class EmpleadoServiceImpl extends GenericServiceImpl<Empleado, EmpleadoDA
         } else {
             return true;
         }
+    }
+
+    @Override
+    public Empleado update(Empleado empleado) {
+        return dao.save(empleado);
     }
 
 }

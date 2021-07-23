@@ -8,4 +8,6 @@ public interface IEmpleadoService extends GenericService<Empleado, Integer> {
 	boolean emailExists(String email);
 
 	boolean dniExists(String email);
+
+	Empleado update(Empleado empleado);
 }

@@ -50,10 +50,15 @@ public abstract class Persona extends GenericEntityAbstract {
 	private String num_doc;
 
 	@NotNull(message = "Seleccione su estado civil")
-	private Character estado_civil;
+	private String estado_civil;
 
 	@NotNull(message = "Seleccione su genero")
-	private Character genero;
+	private String genero;
+
+	@NotEmpty(message = MessagesValidation.CAMPO_VACIO)
+	@Size(min = 9, max = 12, message = "El campo minimo es 9")
+	@Column(nullable = false, unique = true, length = 15)
+	private String telefono;
 
 	@NotNull(message = "Seleccione su fecha de nacimiento")
 	@Temporal(TemporalType.DATE)
@@ -129,19 +134,19 @@ public abstract class Persona extends GenericEntityAbstract {
 		this.num_doc = num_doc;
 	}
 
-	public Character getEstado_civil() {
+	public String getEstado_civil() {
 		return estado_civil;
 	}
 
-	public void setEstado_civil(Character estado_civil) {
+	public void setEstado_civil(String estado_civil) {
 		this.estado_civil = estado_civil;
 	}
 
-	public Character getGenero() {
+	public String getGenero() {
 		return genero;
 	}
 
-	public void setGenero(Character genero) {
+	public void setGenero(String genero) {
 		this.genero = genero;
 	}
 
@@ -217,4 +222,32 @@ public abstract class Persona extends GenericEntityAbstract {
 		this.direccion = direccion;
 	}
 
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	@Override
+	public String toString() {
+		return "Persona{" +
+				"id=" + id +
+				", nombres='" + nombres + '\'' +
+				", apellidos='" + apellidos + '\'' +
+				", num_doc='" + num_doc + '\'' +
+				", estado_civil=" + estado_civil +
+				", genero=" + genero +
+				", fecha_nac=" + fecha_nac +
+				", distrito=" + distrito +
+				", email='" + email + '\'' +
+				", tipo_documento=" + tipo_documento +
+				", direccion='" + direccion + '\'' +
+				", fecha_creación=" + fecha_creación +
+				", fecha_modificacion=" + fecha_modificacion +
+				", fecha_inactivo=" + fecha_inactivo +
+				", estado=" + estado +
+				'}';
+	}
 }
