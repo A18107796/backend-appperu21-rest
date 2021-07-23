@@ -82,11 +82,13 @@ public class GenericController<Entity extends GenericEntityAbstract, Key, Servic
 		}
 		entityCreated = service.save(entity);
 		System.out.println(entityCreated.getId());
+
 		return ResponseEntity.status(HttpStatus.CREATED).body(entityCreated);
 	}
 
 	@DeleteMapping("/{id}")
 	private ResponseEntity<?> eliminar(@PathVariable Key id) {
+
 		Optional<Entity> o = service.findById(id);
 
 		if (o.isEmpty()) {

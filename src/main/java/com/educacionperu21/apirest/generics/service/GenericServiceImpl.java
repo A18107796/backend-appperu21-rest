@@ -3,6 +3,8 @@ package com.educacionperu21.apirest.generics.service;
 import java.util.Optional;
 
 import com.educacionperu21.apirest.entities.GenericEntityAbstract;
+import com.educacionperu21.apirest.entities.GenericEntityAbstractStatus;
+import com.educacionperu21.apirest.enums.Estado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -53,5 +55,7 @@ public class GenericServiceImpl<E extends GenericEntityAbstract, R extends Pagin
 	public boolean ExistsEntity(Key id) {
 		return dao.existsById(id);
 	}
+
+
 
 }

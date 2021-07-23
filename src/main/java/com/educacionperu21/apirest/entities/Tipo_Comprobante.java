@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tipos_comprobante")
-public class Tipo_Comprobante extends GenericEntityAbstract implements Serializable {
+public class Tipo_Comprobante extends GenericEntityAbstract<Integer> implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

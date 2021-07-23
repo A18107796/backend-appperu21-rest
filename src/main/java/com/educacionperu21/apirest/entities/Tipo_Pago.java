@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tipo_pagos")
-public class Tipo_Pago extends GenericEntityAbstract implements Serializable {
+public class Tipo_Pago extends GenericEntityAbstract<Integer> implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

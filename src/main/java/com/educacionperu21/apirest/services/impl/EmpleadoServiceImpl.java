@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import com.educacionperu21.apirest.entities.Estudiante;
+import com.educacionperu21.apirest.entities.IGenericStatusClass;
 import com.educacionperu21.apirest.entities.Usuario;
+import com.educacionperu21.apirest.generics.service.GenericServiceWithStatusImpl;
 import com.educacionperu21.apirest.services.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,7 +20,7 @@ import com.educacionperu21.apirest.services.IEmpleadoService;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class EmpleadoServiceImpl extends GenericServiceImpl<Empleado, EmpleadoDAO, Integer>
+public class EmpleadoServiceImpl extends GenericServiceWithStatusImpl<Empleado , EmpleadoDAO, Integer>
         implements IEmpleadoService {
 
     @Autowired

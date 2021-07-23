@@ -26,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "pagos")
-public class Pago extends GenericEntityAbstract implements Serializable {
+public class Pago extends GenericEntityAbstract<Integer> implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

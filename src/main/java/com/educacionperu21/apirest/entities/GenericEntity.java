@@ -1,9 +1,9 @@
 package com.educacionperu21.apirest.entities;
 
-public interface GenericEntity {
+public interface GenericEntity<Key> {
 
-	public Integer getId();
+    Key getId();
 
-	public void setId(Integer id);
+    void setId(Key id);
 
 }

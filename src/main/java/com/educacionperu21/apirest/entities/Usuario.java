@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "usuarios")
-public class Usuario extends GenericEntityAbstract implements Serializable {
+public class Usuario extends GenericEntityAbstract<Integer> implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +29,7 @@ public class Usuario extends GenericEntityAbstract implements Serializable {
 	private Integer id;
 
 	@Email(message = "Ingrese un email valido")
+	@Column(unique = true)
 	private String email;
 
 	@Column(length = 60)

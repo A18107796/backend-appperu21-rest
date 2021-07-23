@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "especializaciones")
-public class Especializacion extends GenericEntityAbstract implements Serializable {
+public class Especializacion extends GenericEntityAbstract<Integer> implements Serializable {
 
 	/**
 	 * 

@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "departamentos")
-public class Departamento extends GenericEntityAbstract {
+public class Departamento extends GenericEntityAbstract<Integer> {
 
 	@Id
 	@Column(name = "id_departamento")

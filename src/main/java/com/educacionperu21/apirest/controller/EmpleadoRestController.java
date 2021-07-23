@@ -97,7 +97,7 @@ public class EmpleadoRestController extends GenericController<Empleado, Integer,
 
         Empleado empleadoDB = o.get();
         empleadoDB.setNombres(empleado.getNombres());
-        empleadoDB.setApellidos(empleado.getNombres());
+        empleadoDB.setApellidos(empleado.getApellidos());
         empleadoDB.setNum_doc(empleado.getNum_doc());
         empleadoDB.setEstado_civil(empleado.getEstado_civil());
         empleadoDB.setGenero(empleado.getGenero());

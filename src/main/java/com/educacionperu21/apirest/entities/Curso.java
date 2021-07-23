@@ -17,7 +17,7 @@ import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "cursos")
-public class Curso extends GenericEntityAbstract implements Serializable {
+public class Curso extends GenericEntityAbstract<Integer> implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

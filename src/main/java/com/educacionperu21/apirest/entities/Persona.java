@@ -30,7 +30,7 @@ import com.educacionperu21.apirest.enums.Estado;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @MappedSuperclass
-public abstract class Persona extends GenericEntityAbstract {
+public abstract class Persona extends GenericEntityAbstractStatus<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
