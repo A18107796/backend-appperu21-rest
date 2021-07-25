@@ -16,38 +16,38 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(name = "empleados")
 public class Empleado extends Persona {
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "empleado")
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler", "empleado", "password" })
-	private Usuario usuario;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "empleado")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "empleado", "password"})
+    private Usuario usuario;
 
-	@NotNull(message = "Usted debe seleccionar un cargo")
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_cargo")
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-	private Cargo cargo;
+    @NotNull(message = "Usted debe seleccionar un cargo")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_cargo")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Cargo cargo;
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
+    public Usuario getUsuario() {
+        return usuario;
+    }
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
-	public Cargo getCargo() {
-		return cargo;
-	}
+    public Cargo getCargo() {
+        return cargo;
+    }
 
-	public void setCargo(Cargo cargo) {
-		this.cargo = cargo;
-	}
+    public void setCargo(Cargo cargo) {
+        this.cargo = cargo;
+    }
 
 
-	@Override
-	public String toString() {
-		return super.toString() +  " Empleado{" +
-				"usuario=" + usuario +
-				", cargo=" + cargo +
-				'}';
-	}
+    @Override
+    public String toString() {
+        return super.toString() + " Empleado{" +
+                "usuario=" + usuario +
+                ", cargo=" + cargo +
+                '}';
+    }
 }

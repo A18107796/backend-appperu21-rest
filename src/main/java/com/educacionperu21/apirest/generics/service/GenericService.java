@@ -9,7 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 
-public interface GenericService<T extends GenericEntityAbstract, Key> {
+public interface GenericService<T extends GenericEntityAbstract<Key>, Key> {
 	
 	public Iterable<T> findAll();
 	

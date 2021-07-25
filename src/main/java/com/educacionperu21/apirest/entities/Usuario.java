@@ -41,7 +41,7 @@ public class Usuario extends GenericEntityAbstract<Integer> implements Serializa
 	@NotNull(message = "El Usuario debe contener un empleado")
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_empleado")
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler" })
 	private Empleado empleado;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)

@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.educacionperu21.apirest.generics.controller.GenericControllerWithStatus;
 import com.educacionperu21.apirest.services.ICargoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -34,7 +35,7 @@ import com.educacionperu21.apirest.services.IEmpleadoService;
 
 @RestController
 @RequestMapping(path = ControllerPaths.PATH_EMPLEADO)
-public class EmpleadoRestController extends GenericController<Empleado, Integer, IEmpleadoService> {
+public class EmpleadoRestController extends GenericControllerWithStatus<Empleado, Integer, IEmpleadoService> {
 
     @Autowired
     private ICargoService cargoService;
@@ -56,6 +57,8 @@ public class EmpleadoRestController extends GenericController<Empleado, Integer,
         response.put("existe", existsEmail);
         return ResponseEntity.ok(response);
     }
+
+
 
     @GetMapping("/cargos")
     public ResponseEntity<?> getCargos() {

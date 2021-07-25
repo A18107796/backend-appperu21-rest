@@ -29,7 +29,7 @@ import com.educacionperu21.apirest.exceptions.BadRequestException;
 import com.educacionperu21.apirest.exceptions.NotFoundException;
 import com.educacionperu21.apirest.generics.service.GenericService;
 
-public class GenericController<Entity extends GenericEntityAbstract, Key, Service extends GenericService<Entity, Key>> {
+public class GenericController<Entity extends GenericEntityAbstract<Key>, Key, Service extends GenericService<Entity, Key>> {
 
 	@Autowired
 	protected Service service;

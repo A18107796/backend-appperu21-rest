@@ -36,6 +36,7 @@ public abstract class Persona extends GenericEntityAbstractStatus<Integer> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+
 	@NotEmpty(message = MessagesValidation.CAMPO_VACIO)
 	@Column(nullable = false)
 	private String nombres;
@@ -94,13 +95,6 @@ public abstract class Persona extends GenericEntityAbstractStatus<Integer> {
 	@Null
 	private Date fecha_inactivo;
 
-	@Enumerated(EnumType.STRING)
-	private Estado estado;
-
-	@PrePersist
-	public void generateDates() {
-		estado = Estado.PENDIENTE;
-	}
 
 	public Integer getId() {
 		return id;
@@ -143,6 +137,7 @@ public abstract class Persona extends GenericEntityAbstractStatus<Integer> {
 	}
 
 	public String getGenero() {
+
 		return genero;
 	}
 
@@ -182,13 +177,6 @@ public abstract class Persona extends GenericEntityAbstractStatus<Integer> {
 		this.fecha_inactivo = fecha_inactivo;
 	}
 
-	public Estado getEstado() {
-		return estado;
-	}
-
-	public void setEstado(Estado estado) {
-		this.estado = estado;
-	}
 
 	public Date getFecha_nac() {
 		return fecha_nac;
@@ -247,7 +235,7 @@ public abstract class Persona extends GenericEntityAbstractStatus<Integer> {
 				", fecha_creación=" + fecha_creación +
 				", fecha_modificacion=" + fecha_modificacion +
 				", fecha_inactivo=" + fecha_inactivo +
-				", estado=" + estado +
+				", estado=" + this.getEstado() +
 				'}';
 	}
 }
