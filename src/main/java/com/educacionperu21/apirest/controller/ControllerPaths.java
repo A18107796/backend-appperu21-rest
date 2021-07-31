@@ -12,10 +12,14 @@ abstract class ControllerPaths {
 
 	protected static final String PATH_UBICACIONES = MAIN_PATH + "/ubicaciones";
 
+	protected static final String PATH_SEDES = MAIN_PATH + "/sedes";
+
 	public static final String PATH_ANGULAR_ORIGIN = "http://localhost:4200";
 
 	protected static final String PATH_ESTUDIANTES = MAIN_PATH + "/estudiantes";
 
 	protected static final String PATH_MATRICULAS = MAIN_PATH + "/matriculas";
+
+	protected static final String PATH_PERIODO = MAIN_PATH + "/periodos";
 
 }

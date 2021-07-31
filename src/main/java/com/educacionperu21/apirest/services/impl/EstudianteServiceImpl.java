@@ -1,5 +1,6 @@
 package com.educacionperu21.apirest.services.impl;
 
+import com.educacionperu21.apirest.exceptions.NotFoundException;
 import com.educacionperu21.apirest.generics.service.GenericServiceWithStatusImpl;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +10,7 @@ import com.educacionperu21.apirest.generics.service.GenericServiceImpl;
 import com.educacionperu21.apirest.services.IEstudianteService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EstudianteServiceImpl extends GenericServiceWithStatusImpl<Estudiante, EstudianteDAO, Integer>
@@ -32,5 +34,14 @@ public class EstudianteServiceImpl extends GenericServiceWithStatusImpl<Estudian
         } else {
             return true;
         }
+    }
+
+    @Override
+    public Optional<Estudiante> findStudentByDNI(String dni) {
+        Optional<Estudiante> estudianteDB =  dao.findStudentByDNI(dni);
+        if(estudianteDB.isEmpty()){
+            throw new NotFoundException("El estudiante no existe, Verifique DNI");
+        }
+        return estudianteDB;
     }
 }

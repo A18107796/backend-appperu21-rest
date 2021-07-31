@@ -44,6 +44,14 @@ public class EstudianteController extends GenericController<Estudiante, Integer,
         response.put("existe", existsEmail);
         return ResponseEntity.ok(response);
     }
+    @GetMapping("/buscar/dni/{dni}")
+    public ResponseEntity<?> buscarEstudianteXDNI(@PathVariable(name = "dni") String dni) {
+        if(dni == null || dni.length() <= 0){
+            throw new BadRequestException("Envie DNI valido");
+        }
+        return ResponseEntity.ok(service.findStudentByDNI(dni).get());
+    }
+
 
     @GetMapping("/dni/{dni}")
     public ResponseEntity<?> checkDNI(@PathVariable(name = "dni") String dni) {

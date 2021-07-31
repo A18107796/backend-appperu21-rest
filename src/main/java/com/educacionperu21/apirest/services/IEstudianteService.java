@@ -5,10 +5,13 @@ import com.educacionperu21.apirest.generics.service.GenericService;
 import com.educacionperu21.apirest.generics.service.GenericServiceWithStatus;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IEstudianteService extends GenericServiceWithStatus<Estudiante, Integer> {
 
     boolean emailsExists(String email);
 
     boolean dniExists(String dni);
+
+    Optional<Estudiante> findStudentByDNI(String dni);
 }

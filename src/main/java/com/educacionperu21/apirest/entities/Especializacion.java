@@ -46,7 +46,7 @@ public class Especializacion extends GenericEntityAbstract<Integer> implements S
 	@Enumerated(EnumType.STRING)
 	private Estado estado;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<Curso> cursos;
 
 	public Integer getId() {
