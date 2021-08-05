@@ -2,18 +2,14 @@ package com.educacionperu21.apirest.generics.service;
 
 import java.util.Optional;
 
-import com.educacionperu21.apirest.entities.GenericEntityAbstract;
-import com.educacionperu21.apirest.entities.GenericEntityAbstractStatus;
-import com.educacionperu21.apirest.enums.Estado;
+import com.educacionperu21.apirest.entities.GenericEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-public class GenericServiceImpl<E extends GenericEntityAbstract<Key>, R extends PagingAndSortingRepository<E, Key>, Key>
+public class GenericServiceImpl<E extends GenericEntity<Key>, R extends PagingAndSortingRepository<E, Key>, Key>
 		implements GenericService<E, Key> {
 
 	@Autowired
@@ -36,7 +32,6 @@ public class GenericServiceImpl<E extends GenericEntityAbstract<Key>, R extends 
 	@Override
 	@Transactional
 	public E save(E alumno) {
-		// TODO Auto-generated method stub
 		return dao.save(alumno);
 	}
 

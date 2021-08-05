@@ -28,7 +28,7 @@ public class PensionServiceImpl extends GenericServiceImpl<Pension, PensionDAO, 
 
 		for (int i = 0; i < numCuotas; i++) {
 			pensiones.add(
-					new Pension(UUID.randomUUID().toString(), "Pension: CUOTA NUMERO ".concat(i + " "), costoXPension));
+					new Pension(UUID.randomUUID().toString(), "Pension: CUOTA NUMERO ".concat((i + 1) + ""), costoXPension));
 		}
 		return dao.saveAll(pensiones);
 	}

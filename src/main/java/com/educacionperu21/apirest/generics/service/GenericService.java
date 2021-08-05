@@ -3,13 +3,12 @@ package com.educacionperu21.apirest.generics.service;
 
 import java.util.Optional;
 
-import com.educacionperu21.apirest.entities.GenericEntityAbstract;
-import com.educacionperu21.apirest.enums.Estado;
+import com.educacionperu21.apirest.entities.GenericEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 
-public interface GenericService<T extends GenericEntityAbstract<Key>, Key> {
+public interface GenericService<T extends GenericEntity<Key>, Key> {
 	
 	public Iterable<T> findAll();
 	

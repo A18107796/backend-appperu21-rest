@@ -12,7 +12,7 @@ import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "especializacion_tipos")
-public class Especializacion_Tipo extends GenericEntityAbstract<Integer> implements Serializable{
+public class Especializacion_Tipo implements Serializable, GenericEntity<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

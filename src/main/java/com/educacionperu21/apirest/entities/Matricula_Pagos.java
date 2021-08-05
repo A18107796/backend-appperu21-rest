@@ -15,14 +15,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 
 import com.educacionperu21.apirest.enums.Estado;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "matricula_pagos")
-public class Matricula_Pagos extends GenericEntityAbstract<Integer> implements Serializable {
+public class Matricula_Pagos implements Serializable, GenericEntity<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

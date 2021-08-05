@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.educacionperu21.apirest.generics.controller.GenericControllerWithStatus;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ import com.educacionperu21.apirest.services.ICursoService;
 
 @RestController
 @RequestMapping(path = ControllerPaths.PATH_CURSOS)
-public class CursoController extends GenericController<Curso, Integer, ICursoService> {
+public class CursoController extends GenericControllerWithStatus<Curso, Integer, ICursoService> {
 
 	public CursoController() {
 		this.type = Curso.class;

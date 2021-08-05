@@ -2,22 +2,8 @@ package com.educacionperu21.apirest.entities;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.PrePersist;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
@@ -30,7 +16,7 @@ import com.educacionperu21.apirest.enums.Estado;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @MappedSuperclass
-public abstract class Persona extends GenericEntityAbstractStatus<Integer> {
+public abstract class Persona implements IGenericStatusClass<Integer>, java.io.Serializable  {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -83,7 +69,7 @@ public abstract class Persona extends GenericEntityAbstractStatus<Integer> {
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Tipo_Documento tipo_documento;
 
-	@NotEmpty(message = "Ingresé dirección")
+	@NotEmpty(message = "Ingresé dirección ")
 	private String direccion;
 
 	@CreatedDate
@@ -95,11 +81,22 @@ public abstract class Persona extends GenericEntityAbstractStatus<Integer> {
 	@Null
 	private Date fecha_inactivo;
 
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
+	private Estado estado;
 
+
+	@PrePersist
+	public void PrePersist(){
+		this.estado = Estado.INACTIVO;
+	}
+
+	@Override
 	public Integer getId() {
 		return id;
 	}
 
+	@Override
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -216,6 +213,16 @@ public abstract class Persona extends GenericEntityAbstractStatus<Integer> {
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+
+	@Override
+	public Estado getEstado() {
+		return estado;
+	}
+
+	@Override
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 
 	@Override

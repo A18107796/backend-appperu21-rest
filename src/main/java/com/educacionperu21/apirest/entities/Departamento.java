@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "departamentos")
-public class Departamento extends GenericEntityAbstract<Integer> {
+public class Departamento implements GenericEntity<Integer>, java.io.Serializable {
 
 	@Id
 	@Column(name = "id_departamento")

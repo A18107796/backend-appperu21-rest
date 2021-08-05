@@ -5,6 +5,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import com.educacionperu21.apirest.exceptions.InternalServerError;
+import com.educacionperu21.apirest.generics.service.GenericServiceWithStatus;
+import com.educacionperu21.apirest.generics.service.GenericServiceWithStatusImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -25,7 +28,7 @@ import com.educacionperu21.apirest.services.IPensionService;
 import com.educacionperu21.apirest.services.IPeriodoService;
 
 @Service
-public class MatriculaServiceImpl extends GenericServiceImpl<Matricula, MatriculasDAO, Integer>
+public class MatriculaServiceImpl extends GenericServiceWithStatusImpl<Matricula, MatriculasDAO, Integer>
 		implements IMatriculaService {
 
 	@Autowired
@@ -57,17 +60,22 @@ public class MatriculaServiceImpl extends GenericServiceImpl<Matricula, Matricul
 		}
 		
 		
-		Optional<Matricula> OldMatricula = findMostRecentMatriculaById(alumno.getEstudiante().getId());
-		if (OldMatricula.isPresent()) {
-			throw new BadRequestException(("El estudiante ya fue registrado en este periodo, verifique datos."));
-		}
+		Optional<Matricula> OldMatricula = findStudentMatriculado(alumno.getEstudiante().getId());
 
-		List<Pension> pensionesRegistradas = pensionService.registerPensiones(alumno.getNum_cuotas(), 1500);
+		if (OldMatricula.isPresent()) {
+			throw new BadRequestException(("El estudiante ya fue matriculado en este periodo, verifique datos."));
+		}
+		List<Pension> pensionesRegistradas = pensionService.registerPensiones(alumno.getNum_cuotas(), 720);
 		if (pensionesRegistradas == null || pensionesRegistradas.isEmpty()) {
 			throw new BadRequestException("Ocurrio un error, intentelo denuevo");
 		}
 		alumno.setFecha_reg(new Date());
-		alumno.setPeriodo(periodoService.getMostRecentPeriodo().get());
+		alumno.setPeriodo(alumno.getPeriodo());
+		int res = estudianteService.updateEstado(Estado.MATRICULADO, alumno.getEstudiante().getId());
+		if( res <= 0){
+			throw new InternalServerError("Ocurrio un error, intentelo denuevo porfavor.");
+		}
+
 		Matricula newMatricula = dao.save(alumno);
 		alumno.setEstado(Estado.PENDIENTE);
 		int cont = 1;
@@ -83,7 +91,7 @@ public class MatriculaServiceImpl extends GenericServiceImpl<Matricula, Matricul
 				mp.setFecha_venc(alumno.getPeriodo().getFecha_inicio());
 				cont += 1;
 			} else {
-				calendar.add(Calendar.DAY_OF_YEAR, cont * 27);
+				calendar.add(Calendar.DAY_OF_YEAR, cont * 30);
 				cont = cont + 1;
 				mp.setFecha_venc(calendar.getTime());
 			}
@@ -97,6 +105,11 @@ public class MatriculaServiceImpl extends GenericServiceImpl<Matricula, Matricul
 	@Override
 	public Optional<Matricula> findMostRecentMatriculaById(Integer id) {
 		return dao.findMostRecentMatriculaById(id);
+	}
+
+	@Override
+	public Optional<Matricula> findStudentMatriculado(Integer idStudent) {
+		return dao.studentMatriculado(idStudent);
 	}
 
 }

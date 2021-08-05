@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.Null;
 
+import com.educacionperu21.apirest.generics.controller.GenericControllerWithStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.dao.DataAccessException;
@@ -38,7 +39,7 @@ import com.educacionperu21.apirest.services.IEspecializacionTipoService;
 @RestController
 @RequestMapping(path = ControllerPaths.PATH_ESPECIALIZACION)
 public class EspecializacionRestController
-		extends GenericController<Especializacion, Integer, IEspecializacionService> {
+		extends GenericControllerWithStatus<Especializacion, Integer, IEspecializacionService> {
 
 	@Autowired
 	private IEspecializacionTipoService esp_tipo_service;

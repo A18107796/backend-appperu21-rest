@@ -2,7 +2,6 @@ package com.educacionperu21.apirest.entities;
 
 import java.io.Serializable;
 
-import javax.annotation.Generated;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tipos_comprobante")
-public class Tipo_Comprobante extends GenericEntityAbstract<Integer> implements Serializable {
+public class Tipo_Comprobante implements Serializable, GenericEntity<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

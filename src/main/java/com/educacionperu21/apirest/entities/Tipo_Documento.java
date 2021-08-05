@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tipos_documentos")
-public class Tipo_Documento extends GenericEntityAbstract<Integer> {
+public class Tipo_Documento implements GenericEntity<Integer>, java.io.Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

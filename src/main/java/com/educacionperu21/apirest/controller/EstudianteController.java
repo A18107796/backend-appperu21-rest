@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import com.educacionperu21.apirest.exceptions.InternalServerError;
+import com.educacionperu21.apirest.generics.controller.GenericControllerWithStatus;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ import com.educacionperu21.apirest.services.IEstudianteService;
 @CrossOrigin(origins = ControllerPaths.PATH_ANGULAR_ORIGIN)
 @RestController
 @RequestMapping(path = ControllerPaths.PATH_ESTUDIANTES)
-public class EstudianteController extends GenericController<Estudiante, Integer, IEstudianteService> {
+public class EstudianteController extends GenericControllerWithStatus<Estudiante, Integer, IEstudianteService> {
 
     public EstudianteController() {
         this.type = Estudiante.class;

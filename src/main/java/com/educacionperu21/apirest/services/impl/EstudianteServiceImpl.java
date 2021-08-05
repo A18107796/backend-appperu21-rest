@@ -1,5 +1,6 @@
 package com.educacionperu21.apirest.services.impl;
 
+import com.educacionperu21.apirest.enums.Estado;
 import com.educacionperu21.apirest.exceptions.NotFoundException;
 import com.educacionperu21.apirest.generics.service.GenericServiceWithStatusImpl;
 import org.springframework.stereotype.Service;
@@ -43,5 +44,10 @@ public class EstudianteServiceImpl extends GenericServiceWithStatusImpl<Estudian
             throw new NotFoundException("El estudiante no existe, Verifique DNI");
         }
         return estudianteDB;
+    }
+
+    @Override
+    public int updateEstado(Estado estado, Integer id) {
+        return dao.updateEstado(estado, id);
     }
 }

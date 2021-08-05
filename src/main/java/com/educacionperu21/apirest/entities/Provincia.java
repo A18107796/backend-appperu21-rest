@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "provincias")
-public class Provincia extends GenericEntityAbstract<Integer> {
+public class Provincia implements GenericEntity<Integer>, java.io.Serializable {
 
 	@Id
 	@Column(name = "id_provincias")

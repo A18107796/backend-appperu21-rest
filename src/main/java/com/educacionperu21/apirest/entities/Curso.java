@@ -12,12 +12,11 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
 import com.educacionperu21.apirest.enums.Estado;
-import com.sun.istack.NotNull;
 
 
 @Entity
 @Table(name = "cursos")
-public class Curso extends GenericEntityAbstract<Integer> implements Serializable {
+public class Curso implements Serializable, IGenericStatusClass<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

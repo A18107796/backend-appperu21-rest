@@ -7,29 +7,27 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import javax.persistence.Entity;
 import javax.validation.Valid;
 
+import com.educacionperu21.apirest.entities.GenericEntity;
+import com.educacionperu21.apirest.entities.IGenericStatusClass;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.educacionperu21.apirest.entities.GenericEntityAbstract;
 import com.educacionperu21.apirest.exceptions.BadRequestException;
 import com.educacionperu21.apirest.exceptions.NotFoundException;
 import com.educacionperu21.apirest.generics.service.GenericService;
 
-public class GenericController<Entity extends GenericEntityAbstract<Key>, Key, Service extends GenericService<Entity, Key>> {
+public class GenericController<Entity extends GenericEntity<Key>, Key, Service extends GenericService<Entity, Key>> {
 
 	@Autowired
 	protected Service service;
@@ -81,7 +79,6 @@ public class GenericController<Entity extends GenericEntityAbstract<Key>, Key, S
 			throw new BadRequestException(errors);
 		}
 		entityCreated = service.save(entity);
-		System.out.println(entityCreated.getId());
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(entityCreated);
 	}

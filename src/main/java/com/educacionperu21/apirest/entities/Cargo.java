@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "cargos")
-public class Cargo extends GenericEntityAbstract<Integer> implements Serializable{
+public class Cargo implements Serializable, GenericEntity<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

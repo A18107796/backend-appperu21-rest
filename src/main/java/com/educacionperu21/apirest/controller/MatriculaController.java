@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.educacionperu21.apirest.generics.controller.GenericControllerWithStatus;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -25,7 +26,7 @@ import com.educacionperu21.apirest.services.IMatriculaService;
 @CrossOrigin(origins = ControllerPaths.PATH_ANGULAR_ORIGIN)
 @RestController
 @RequestMapping(path = ControllerPaths.PATH_MATRICULAS)
-public class MatriculaController extends GenericController<Matricula, Integer, IMatriculaService> {
+public class MatriculaController extends GenericControllerWithStatus<Matricula, Integer, IMatriculaService> {
 
 	public MatriculaController() {
 		this.type = Matricula.class;

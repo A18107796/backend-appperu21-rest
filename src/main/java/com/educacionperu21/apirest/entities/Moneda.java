@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table
-public class Moneda extends GenericEntityAbstract<Integer> implements Serializable{
+public class Moneda implements Serializable, GenericEntity<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

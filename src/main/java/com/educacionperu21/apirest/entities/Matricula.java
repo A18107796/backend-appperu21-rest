@@ -27,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "matriculas")
-public class Matricula extends GenericEntityAbstract<Integer> implements Serializable {
+public class Matricula implements Serializable, IGenericStatusClass<Integer> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -64,7 +64,7 @@ public class Matricula extends GenericEntityAbstract<Integer> implements Seriali
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Estudiante estudiante;
 
-	@NotNull(message = "Usted debe seleccionar un Periodo")
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_periodo")
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
@@ -180,6 +180,13 @@ public class Matricula extends GenericEntityAbstract<Integer> implements Seriali
 		this.sede = sede;
 	}
 
+	public double getTotal(){
+		double total = 0.0;
+		for (Matricula_Pagos p: pagos){
+			total += p.getPension().getMonto();
+		}
+		return total;
+	}
 	/**
 	 * 
 	 */

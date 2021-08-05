@@ -2,6 +2,7 @@ package com.educacionperu21.apirest.services.impl;
 
 import java.util.Optional;
 
+import com.educacionperu21.apirest.generics.service.GenericServiceWithStatusImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +16,7 @@ import com.educacionperu21.apirest.generics.service.GenericServiceImpl;
 import com.educacionperu21.apirest.services.IEspecializacionService;
 
 @Service
-public class EspecializacionServiceImpl extends GenericServiceImpl<Especializacion, EspecializacionDAO, Integer>
+public class EspecializacionServiceImpl extends GenericServiceWithStatusImpl<Especializacion, EspecializacionDAO, Integer>
 		implements IEspecializacionService {
 
 	@Override
