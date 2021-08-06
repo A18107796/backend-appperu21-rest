@@ -44,7 +44,7 @@ public abstract class Persona implements IGenericStatusClass<Integer>, java.io.S
 
 	@NotEmpty(message = MessagesValidation.CAMPO_VACIO)
 	@Size(min = 9, max = 12, message = "El campo minimo es 9")
-	@Column(nullable = false, unique = true, length = 15)
+	@Column(nullable = false, unique = false, length = 15)
 	private String telefono;
 
 	@NotNull(message = "Seleccione su fecha de nacimiento")
