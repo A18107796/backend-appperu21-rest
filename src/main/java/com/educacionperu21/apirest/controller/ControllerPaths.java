@@ -14,7 +14,7 @@ abstract class ControllerPaths {
 
 	protected static final String PATH_SEDES = MAIN_PATH + "/sedes";
 
-	public static final String PATH_ANGULAR_ORIGIN = "http://localhost:4200";
+	public static final String PATH_ANGULAR_ORIGIN = "https://peru21appv2.web.app";
 
 	protected static final String PATH_ESTUDIANTES = MAIN_PATH + "/estudiantes";
 
