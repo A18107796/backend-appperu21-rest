@@ -1,4 +1,7 @@
 package com.educacionperu21.apirest.dao;
 
-public class MonedaDAO {
+import com.educacionperu21.apirest.entities.Moneda;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MonedaDAO extends JpaRepository<Moneda, Integer> {
 }

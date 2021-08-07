@@ -29,87 +29,101 @@ import com.educacionperu21.apirest.services.IPeriodoService;
 
 @Service
 public class MatriculaServiceImpl extends GenericServiceWithStatusImpl<Matricula, MatriculasDAO, Integer>
-		implements IMatriculaService {
+        implements IMatriculaService {
 
-	@Autowired
-	private IPeriodoService periodoService;
+    @Autowired
+    private IPeriodoService periodoService;
 
-	@Autowired
-	private IEspecializacionService especializacionService;
+    @Autowired
+    private IEspecializacionService especializacionService;
 
-	@Autowired
-	private IPensionService pensionService;
-	
-	@Autowired
-	private IEstudianteService estudianteService;
+    @Autowired
+    private IPensionService pensionService;
 
-	@Override
-	@Transactional
-	public Matricula save(Matricula alumno) {
+    @Autowired
+    private IEstudianteService estudianteService;
 
-		if (!especializacionService.ExistsEspecializacion(alumno.getEspecializacion().getId())) {
-			throw new NotFoundException("La especializacion no existe, verifique datos.");
-		}
+    @Override
+    @Transactional
+    public Matricula save(Matricula alumno) {
 
-		if (!estudianteService.ExistsEntity(alumno.getEstudiante().getId())) {
-			throw new NotFoundException("El estudiante no existe, verifique datos.");
-		}
-		
-		if(!periodoService.ExistsEntity(alumno.getPeriodo().getId())) {
-			throw new NotFoundException("El periodo no existe, verifique datos.");
-		}
-		
-		
-		Optional<Matricula> OldMatricula = findStudentMatriculado(alumno.getEstudiante().getId());
+        if (!especializacionService.ExistsEspecializacion(alumno.getEspecializacion().getId())) {
+            throw new NotFoundException("La especializacion no existe, verifique datos.");
+        }
 
-		if (OldMatricula.isPresent()) {
-			throw new BadRequestException(("El estudiante ya fue matriculado en este periodo, verifique datos."));
-		}
-		List<Pension> pensionesRegistradas = pensionService.registerPensiones(alumno.getNum_cuotas(), 720);
-		if (pensionesRegistradas == null || pensionesRegistradas.isEmpty()) {
-			throw new BadRequestException("Ocurrio un error, intentelo denuevo");
-		}
-		alumno.setFecha_reg(new Date());
-		alumno.setPeriodo(alumno.getPeriodo());
-		int res = estudianteService.updateEstado(Estado.MATRICULADO, alumno.getEstudiante().getId());
-		if( res <= 0){
-			throw new InternalServerError("Ocurrio un error, intentelo denuevo porfavor.");
-		}
+        if (!estudianteService.ExistsEntity(alumno.getEstudiante().getId())) {
+            throw new NotFoundException("El estudiante no existe, verifique datos.");
+        }
 
-		Matricula newMatricula = dao.save(alumno);
-		alumno.setEstado(Estado.PENDIENTE);
-		int cont = 1;
-		for (Pension p : pensionesRegistradas) {
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(alumno.getPeriodo().getFecha_inicio());
-			Matricula_Pagos mp = new Matricula_Pagos();
-			mp.setEstado(Estado.PENDIENTE);
-			mp.setFecha_pago(null);
-			mp.setPension(p);
-			mp.setFecha_venc(null);
-			if (cont == 0) {
-				mp.setFecha_venc(alumno.getPeriodo().getFecha_inicio());
-				cont += 1;
-			} else {
-				calendar.add(Calendar.DAY_OF_YEAR, cont * 30);
-				cont = cont + 1;
-				mp.setFecha_venc(calendar.getTime());
-			}
-			mp.setMatricula(newMatricula);
-			newMatricula.getPagos().add(mp);
-		}
+        if (!periodoService.ExistsEntity(alumno.getPeriodo().getId())) {
+            throw new NotFoundException("El periodo no existe, verifique datos.");
+        }
 
-		return dao.save(alumno);
-	}
 
-	@Override
-	public Optional<Matricula> findMostRecentMatriculaById(Integer id) {
-		return dao.findMostRecentMatriculaById(id);
-	}
+        Optional<Matricula> OldMatricula = findStudentMatriculado(alumno.getEstudiante().getId());
 
-	@Override
-	public Optional<Matricula> findStudentMatriculado(Integer idStudent) {
-		return dao.studentMatriculado(idStudent);
-	}
+        if (OldMatricula.isPresent()) {
+            throw new BadRequestException(("El estudiante ya fue matriculado en este periodo, verifique datos."));
+        }
+        List<Pension> pensionesRegistradas = pensionService.registerPensiones(alumno.getNum_cuotas(), 720);
+        if (pensionesRegistradas == null || pensionesRegistradas.isEmpty()) {
+            throw new BadRequestException("Ocurrio un error, intentelo denuevo");
+        }
+        alumno.setFecha_reg(new Date());
+        alumno.setPeriodo(alumno.getPeriodo());
+        int res = estudianteService.updateEstado(Estado.MATRICULADO, alumno.getEstudiante().getId());
+        if (res <= 0) {
+            throw new InternalServerError("Ocurrio un error, intentelo denuevo porfavor.");
+        }
+
+        Matricula newMatricula = dao.save(alumno);
+        alumno.setEstado(Estado.PENDIENTE);
+        int cont = 1;
+        for (Pension p : pensionesRegistradas) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(alumno.getPeriodo().getFecha_inicio());
+            Matricula_Pagos mp = new Matricula_Pagos();
+            mp.setEstado(Estado.PENDIENTE);
+            mp.setFecha_pago(null);
+            mp.setPension(p);
+            mp.setFecha_venc(null);
+            if (cont == 0) {
+                mp.setFecha_venc(alumno.getPeriodo().getFecha_inicio());
+                cont += 1;
+            } else {
+                calendar.add(Calendar.DAY_OF_YEAR, cont * 30);
+                cont = cont + 1;
+                mp.setFecha_venc(calendar.getTime());
+            }
+            mp.setMatricula(newMatricula);
+            newMatricula.getPagos().add(mp);
+        }
+
+        return dao.save(alumno);
+    }
+
+    @Override
+    public Optional<Matricula> findMostRecentMatriculaById(Integer id) {
+        return dao.findMostRecentMatriculaById(id);
+    }
+
+    @Override
+    public Optional<Matricula> findStudentMatriculado(Integer idStudent) {
+        return dao.studentMatriculado(idStudent);
+    }
+
+    @Override
+    public List<Matricula> findMatriculasByDNI(String dni) {
+        if (dni.length() >= 8 && dni.length() <= 11) {
+            List<Matricula> matriculas = dao.getMatriculaByEstudiante(dni);
+            if (matriculas.isEmpty()) {
+                throw new NotFoundException("No existen matriculas con el DNI ingresado.");
+            }
+            return matriculas;
+        } else {
+            throw new BadRequestException("Ingrese un numero de documento valido.");
+        }
+
+    }
 
 }

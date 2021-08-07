@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Null;
 
 import com.educacionperu21.apirest.enums.Estado;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -23,80 +24,92 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(name = "matricula_pagos")
 public class Matricula_Pagos implements Serializable, GenericEntity<Integer> {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	@Enumerated(EnumType.STRING)
-	private Estado estado;
+    @Enumerated(EnumType.STRING)
+    private Estado estado;
 
-	@Temporal(TemporalType.DATE)
-	private Date fecha_pago;
+    @Temporal(TemporalType.DATE)
+    private Date fecha_pago;
 
-	@Temporal(TemporalType.DATE)
-	private Date fecha_venc;
+    @Temporal(TemporalType.DATE)
+    private Date fecha_venc;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_pension")
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-	private Pension pension;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_pension")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Pension pension;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_matricula")
-	@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" }, allowSetters = true)
-	private Matricula matricula;
+    @Null
+    private double mora;
 
-	public Pension getPension() {
-		return pension;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_matricula")
+    @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"}, allowSetters = true)
+    private Matricula matricula;
 
-	public void setPension(Pension pension) {
-		this.pension = pension;
-	}
+    public Pension getPension() {
+        return pension;
+    }
 
-	public Matricula getMatricula() {
-		return matricula;
-	}
+    public void setPension(Pension pension) {
+        this.pension = pension;
+    }
 
-	public void setMatricula(Matricula matricula) {
-		this.matricula = matricula;
-	}
+    public Matricula getMatricula() {
+        return matricula;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public void setMatricula(Matricula matricula) {
+        this.matricula = matricula;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public Estado getEstado() {
-		return estado;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setEstado(Estado estado) {
-		this.estado = estado;
-	}
+    public Estado getEstado() {
+        return estado;
+    }
 
-	public Date getFecha_pago() {
-		return fecha_pago;
-	}
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
 
-	public void setFecha_pago(Date fecha_pago) {
-		this.fecha_pago = fecha_pago;
-	}
+    public Date getFecha_pago() {
+        return fecha_pago;
+    }
 
-	public Date getFecha_venc() {
-		return fecha_venc;
-	}
+    public void setFecha_pago(Date fecha_pago) {
+        this.fecha_pago = fecha_pago;
+    }
 
-	public void setFecha_venc(Date fecha_venc) {
-		this.fecha_venc = fecha_venc;
-	}
+    public Date getFecha_venc() {
+        return fecha_venc;
+    }
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    public void setFecha_venc(Date fecha_venc) {
+        this.fecha_venc = fecha_venc;
+    }
+
+
+    public double getMora() {
+        return mora;
+    }
+
+    public void setMora(double mora) {
+        this.mora = mora;
+    }
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
 }

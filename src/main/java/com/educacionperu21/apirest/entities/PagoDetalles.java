@@ -18,55 +18,55 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(name = "pagos_detalles")
 public class PagoDetalles implements Serializable, GenericEntity<Integer> {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	private int cantidad;
+    private int cantidad;
 
-	private double subtotal;
+    private double subtotal;
 
-	@NotNull(message = "Usted debe seleccionar un Pago")
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_matricula_pago")
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-	private Matricula_Pagos pago;
+    @NotNull(message = "Usted debe seleccionar un Pago")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_matricula_pago")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Matricula_Pagos pago;
 
-	public Integer getId() {
-		return id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public int getCantidad() {
-		return cantidad;
-	}
+    public int getCantidad() {
+        return cantidad;
+    }
 
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
-	}
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
 
-	public double getSubtotal() {
-		return subtotal;
-	}
+    public double getSubtotal() {
+        return subtotal;
+    }
 
-	public void setSubtotal(double subtotal) {
-		this.subtotal = subtotal;
-	}
+    public void setSubtotal(double subtotal) {
+        this.subtotal = subtotal;
+    }
 
-	public Matricula_Pagos getPago() {
-		return pago;
-	}
+    public Matricula_Pagos getPago() {
+        return pago;
+    }
 
-	public void setPago(Matricula_Pagos pago) {
-		this.pago = pago;
-	}
+    public void setPago(Matricula_Pagos pago) {
+        this.pago = pago;
+    }
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
 }
