@@ -12,11 +12,7 @@ import com.educacionperu21.apirest.generics.controller.GenericControllerWithStat
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.educacionperu21.apirest.entities.Matricula;
 import com.educacionperu21.apirest.exceptions.BadRequestException;
@@ -28,28 +24,38 @@ import com.educacionperu21.apirest.services.IMatriculaService;
 @RequestMapping(path = ControllerPaths.PATH_MATRICULAS)
 public class MatriculaController extends GenericControllerWithStatus<Matricula, Integer, IMatriculaService> {
 
-	public MatriculaController() {
-		this.type = Matricula.class;
-	}
+    public MatriculaController() {
+        this.type = Matricula.class;
+    }
 
-	@Override
-	@PostMapping("/matricular")
-	public ResponseEntity<?> crear(@Valid @RequestBody Matricula entity, BindingResult result) {
-		Matricula entityCreated;
-		Map<String, Object> response = new HashMap<>();
+    @Override
+    @PostMapping("/matricular")
+    public ResponseEntity<?> crear(@Valid @RequestBody Matricula entity, BindingResult result) {
+        Matricula entityCreated;
+        Map<String, Object> response = new HashMap<>();
 
-		System.out.println("FUERRA ERROR");
-		if (result.hasErrors()) {
-			System.out.println("ERROR");
-			List<String> errors2 = new ArrayList<String>();
-			errors2 = result.getFieldErrors().stream()
-					.map(err -> "'" + err.getField() + "': " + err.getDefaultMessage()).collect(Collectors.toList());
-			response.put("errors", errors2);
-			throw new BadRequestException(errors2);
+        System.out.println("FUERRA ERROR");
+        if (result.hasErrors()) {
+            System.out.println("ERROR");
+            List<String> errors2 = new ArrayList<String>();
+            errors2 = result.getFieldErrors().stream()
+                    .map(err -> "'" + err.getField() + "': " + err.getDefaultMessage()).collect(Collectors.toList());
+            response.put("errors", errors2);
+            throw new BadRequestException(errors2);
 
-		}
-		entityCreated = service.save(entity);
+        }
+        entityCreated = service.save(entity);
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(entityCreated);
-	}
+        return ResponseEntity.status(HttpStatus.CREATED).body(entityCreated);
+    }
+
+    @GetMapping("/filter/dni/{dni}")
+    public ResponseEntity<?> findByDNI(@PathVariable("dni") String dni) {
+        if (dni == null) {
+            throw new BadRequestException("Verifique datos.");
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(service.findMatriculasByDNI(dni));
+    }
+
 }

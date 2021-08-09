@@ -1,5 +1,6 @@
 package com.educacionperu21.apirest.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.educacionperu21.apirest.entities.IGenericStatusClass;
@@ -12,4 +13,6 @@ public interface IMatriculaService extends GenericServiceWithStatus<Matricula, I
 	Optional<Matricula> findMostRecentMatriculaById(Integer id);
 
 	Optional<Matricula> findStudentMatriculado(Integer idStudent);
+
+	List<Matricula> findMatriculasByDNI(String dni);
 }

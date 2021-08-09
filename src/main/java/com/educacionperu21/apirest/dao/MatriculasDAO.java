@@ -21,8 +21,8 @@ public interface MatriculasDAO extends GenericJPAStatusRepository<Matricula, Int
 	@Query(value = "CALL estudiante_matriculado(:idStudent);", nativeQuery = true)
 	Optional<Matricula> studentMatriculado(Integer idStudent);
 
-	@Query(value = "select m from Matricula m where m.estudiante.id = ?1")
-	List<Matricula> getMatriculaByEstudiante(Integer idStudent);
+	@Query(value = "select m from Matricula m where m.estudiante.num_doc = ?1")
+	List<Matricula> getMatriculaByEstudiante(String dni);
 
 	@Transactional
 	@Modifying

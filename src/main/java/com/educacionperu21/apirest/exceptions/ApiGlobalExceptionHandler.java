@@ -1,6 +1,7 @@
 package com.educacionperu21.apirest.exceptions;
 
 import java.net.ConnectException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,6 +45,13 @@ public class ApiGlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(ConnectException.class)
 	@ResponseBody
 	public ErrorMessage serviceUnavailable(HttpServletRequest request, ConnectException exception) {
+		return new ErrorMessage(exception, request.getRequestURI());
+	}
+
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+	@ResponseBody
+	public ErrorMessage sqlIntegrityContraintValioation(HttpServletRequest request, SQLIntegrityConstraintViolationException exception) {
 		return new ErrorMessage(exception, request.getRequestURI());
 	}
 
