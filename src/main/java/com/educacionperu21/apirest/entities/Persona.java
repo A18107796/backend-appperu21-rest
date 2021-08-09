@@ -88,7 +88,11 @@ public abstract class Persona implements IGenericStatusClass<Integer>, java.io.S
 
 	@PrePersist
 	public void PrePersist(){
-		this.estado = Estado.INACTIVO;
+		if(this instanceof Estudiante){
+			this.estado = Estado.PENDIENTE;
+		}else{
+			this.estado = Estado.INACTIVO;
+		}
 	}
 
 	@Override

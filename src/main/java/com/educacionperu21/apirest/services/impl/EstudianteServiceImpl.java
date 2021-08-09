@@ -20,21 +20,13 @@ public class EstudianteServiceImpl extends GenericServiceWithStatusImpl<Estudian
     @Override
     public boolean emailsExists(String email) {
         List<String> emails = dao.emailsExists(email);
-        if (emails.isEmpty()) {
-            return false;
-        } else {
-            return true;
-        }
+        return !emails.isEmpty();
     }
 
     @Override
     public boolean dniExists(String dni) {
         List<String> emails = dao.dniExists(dni);
-        if (emails.isEmpty()) {
-            return false;
-        } else {
-            return true;
-        }
+        return !emails.isEmpty();
     }
 
     @Override

@@ -1,8 +1,6 @@
 package com.educacionperu21.apirest.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -45,6 +43,7 @@ public class EstudianteController extends GenericControllerWithStatus<Estudiante
         response.put("existe", existsEmail);
         return ResponseEntity.ok(response);
     }
+
     @GetMapping("/buscar/dni/{dni}")
     public ResponseEntity<?> buscarEstudianteXDNI(@PathVariable(name = "dni") String dni) {
         if(dni == null || dni.length() <= 0){
@@ -75,15 +74,16 @@ public class EstudianteController extends GenericControllerWithStatus<Estudiante
 
         Optional<Estudiante> o = service.findById(id_estudiante);
 
-        if (!o.isPresent()) {
+        if (o.isEmpty()) {
             throw new NotFoundException("El estudiante no existe.");
         }
 
         if (result.hasErrors()) {
-            Map<String, String> errors = new HashMap<String, String>();
-            errors = result.getFieldErrors().stream()
-                    .collect(Collectors.toMap(FieldError::getField, DefaultMessageSourceResolvable::getDefaultMessage));
+            List<String> errors = new ArrayList<String>();
+            errors = result.getFieldErrors().stream().map(err -> "'" + err.getField() + "': " + err.getDefaultMessage())
+                    .collect(Collectors.toList());
             response.put("errors", errors);
+
             throw new BadRequestException(errors);
         }
 

@@ -14,10 +14,10 @@ import java.util.Optional;
 public interface EstudianteDAO extends GenericJPAStatusRepository<Estudiante, Integer> {
 
 
-    @Query(value = "select e from Estudiante  e where e.email = ?1")
+    @Query(nativeQuery = true, value = "select e.email from estudiantes e where e.email = ?1")
     List<String> emailsExists(String email);
 
-    @Query(value = "select e.num_doc from Estudiante e  where e.num_doc = ?1")
+    @Query(nativeQuery = true, value = "select e.num_doc from estudiantes e where e.num_doc = ?1")
     List<String> dniExists(String dni);
 
     @Query("select e from Estudiante e where e.num_doc = ?1")
