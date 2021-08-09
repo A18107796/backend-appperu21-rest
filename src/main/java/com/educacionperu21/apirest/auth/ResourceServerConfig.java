@@ -25,6 +25,14 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	public void configure(HttpSecurity http) throws Exception {
 
 		http.authorizeRequests()
+				.antMatchers(HttpMethod.GET,
+						"/swagger-resources/**",
+						"/swagger-ui.html",
+						"/swagger-ui/**",
+						"/v3/api-docs/",
+						"/swagger-ui-custom.html",
+						"/webjars/**")
+				.permitAll()
 		/*.antMatchers(HttpMethod.GET, "")
 				.permitAll()
 				 Especializaciones */

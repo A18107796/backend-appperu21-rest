@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.educacionperu21.apirest.enums.Roles;
 
+
 @SpringBootApplication
 public class BackendAppperu21ApirestApplication implements CommandLineRunner {
 
