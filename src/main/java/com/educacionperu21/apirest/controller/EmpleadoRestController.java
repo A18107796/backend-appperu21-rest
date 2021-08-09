@@ -16,13 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.educacionperu21.apirest.entities.Empleado;
 import com.educacionperu21.apirest.entities.Especializacion;
@@ -33,6 +27,8 @@ import com.educacionperu21.apirest.exceptions.ServiceUnavailableException;
 import com.educacionperu21.apirest.generics.controller.GenericController;
 import com.educacionperu21.apirest.services.IEmpleadoService;
 
+
+@CrossOrigin(origins = ControllerPaths.PATH_ANGULAR_ORIGIN)
 @RestController
 @RequestMapping(path = ControllerPaths.PATH_EMPLEADO)
 public class EmpleadoRestController extends GenericControllerWithStatus<Empleado, Integer, IEmpleadoService> {

@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
+@CrossOrigin(origins = ControllerPaths.PATH_ANGULAR_ORIGIN)
 @RestController
 @RequestMapping(path = ControllerPaths.PATH_PERIODO)
 public class PeriodoController extends GenericControllerWithStatus<Periodo, Integer, IPeriodoService> {

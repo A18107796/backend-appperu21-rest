@@ -6,15 +6,13 @@ import com.educacionperu21.apirest.entities.Provincia;
 import com.educacionperu21.apirest.entities.Tipo_Documento;
 import com.educacionperu21.apirest.services.ITipoDocumentoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.educacionperu21.apirest.services.IUbicacionService;
 
 import java.util.List;
 
+@CrossOrigin(origins = ControllerPaths.PATH_ANGULAR_ORIGIN)
 @RestController
 @RequestMapping(path = ControllerPaths.PATH_UBICACIONES)
 public class UbicacionRestController {
