@@ -33,7 +33,7 @@ public class Pago implements Serializable, IGenericStatusClass<Integer> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String npago;
+    private int npago;
 
     private String ruc;
 
@@ -68,7 +68,7 @@ public class Pago implements Serializable, IGenericStatusClass<Integer> {
     private Moneda moneda;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
+    private Date fecha_reg;
 
     @Enumerated(EnumType.STRING)
     private Estado estado;
@@ -78,8 +78,9 @@ public class Pago implements Serializable, IGenericStatusClass<Integer> {
     @JsonIgnoreProperties({"pagos", "hibernateLazyInitializer", "handler"})
     private List<PagoDetalles> pagoDetalles;
 
-    @Null
+
     private String img_recibo_pago;
+
 
 
     public List<PagoDetalles> getPagoDetalles() {
@@ -110,11 +111,11 @@ public class Pago implements Serializable, IGenericStatusClass<Integer> {
         this.id = id;
     }
 
-    public String getNpago() {
+    public int getNpago() {
         return npago;
     }
 
-    public void setNpago(String npago) {
+    public void setNpago(int npago) {
         this.npago = npago;
     }
 
@@ -166,12 +167,12 @@ public class Pago implements Serializable, IGenericStatusClass<Integer> {
         this.moneda = moneda;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getFecha_reg() {
+        return fecha_reg;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setFecha_reg(Date fecha_reg) {
+        this.fecha_reg = fecha_reg;
     }
 
     public Estado getEstado() {

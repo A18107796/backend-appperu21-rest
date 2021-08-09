@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import com.educacionperu21.apirest.entities.Periodo;
 import com.educacionperu21.apirest.exceptions.InternalServerError;
 import com.educacionperu21.apirest.generics.service.GenericServiceWithStatus;
 import com.educacionperu21.apirest.generics.service.GenericServiceWithStatusImpl;
@@ -65,12 +66,13 @@ public class MatriculaServiceImpl extends GenericServiceWithStatusImpl<Matricula
         if (OldMatricula.isPresent()) {
             throw new BadRequestException(("El estudiante ya fue matriculado en este periodo, verifique datos."));
         }
-        List<Pension> pensionesRegistradas = pensionService.registerPensiones(alumno.getNum_cuotas(), 720);
+        List<Pension> pensionesRegistradas = pensionService.registerPensiones(alumno.getNum_cuotas(), 960);
         if (pensionesRegistradas == null || pensionesRegistradas.isEmpty()) {
             throw new BadRequestException("Ocurrio un error, intentelo denuevo");
         }
         alumno.setFecha_reg(new Date());
-        alumno.setPeriodo(alumno.getPeriodo());
+        Optional<Periodo> periodoBD = periodoService.findById(alumno.getPeriodo().getId());
+        alumno.setPeriodo(periodoBD.get());
         int res = estudianteService.updateEstado(Estado.MATRICULADO, alumno.getEstudiante().getId());
         if (res <= 0) {
             throw new InternalServerError("Ocurrio un error, intentelo denuevo porfavor.");
@@ -78,7 +80,7 @@ public class MatriculaServiceImpl extends GenericServiceWithStatusImpl<Matricula
 
         Matricula newMatricula = dao.save(alumno);
         alumno.setEstado(Estado.PENDIENTE);
-        int cont = 1;
+        int cont = 0;
         for (Pension p : pensionesRegistradas) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(alumno.getPeriodo().getFecha_inicio());
@@ -99,7 +101,7 @@ public class MatriculaServiceImpl extends GenericServiceWithStatusImpl<Matricula
             newMatricula.getPagos().add(mp);
         }
 
-        return dao.save(alumno);
+        return dao.save(newMatricula);
     }
 
     @Override

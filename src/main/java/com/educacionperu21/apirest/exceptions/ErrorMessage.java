@@ -1,6 +1,7 @@
 package com.educacionperu21.apirest.exceptions;
 
 import java.net.ConnectException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +22,11 @@ public class ErrorMessage {
 		if (exception instanceof ConnectException) {
 			this.message = "La base de datos no se encuentra disponible";
 		}
+
+		if(exception instanceof SQLIntegrityConstraintViolationException){
+			this.message = "No puede actualizar ni eliminar registros que se encuentren vinculados a otros datos.";
+		}
+
 		this.path = path;
 	}
 

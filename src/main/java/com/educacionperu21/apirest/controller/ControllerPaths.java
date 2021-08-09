@@ -22,4 +22,15 @@ abstract class ControllerPaths {
 
 	protected static final String PATH_PERIODO = MAIN_PATH + "/periodos";
 
+	protected static final String PATH_PAGO = MAIN_PATH + "/pagos";
+
+	protected static final String PATH_MATRICULA_PAGO = MAIN_PATH + "/matricula-pagos";
+
+	protected static final String PATH_MONEDA = MAIN_PATH + "/monedas";
+
+	protected static final String PATH_TIPO_PAGO = MAIN_PATH + "/tipos-pago";
+
+	protected static final String PATH_TIPO_COMPROBANTE = MAIN_PATH + "/tipos-comprobante";
+
+
 }

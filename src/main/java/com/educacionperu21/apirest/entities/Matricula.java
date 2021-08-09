@@ -80,6 +80,8 @@ public class Matricula implements Serializable, IGenericStatusClass<Integer> {
 	@JsonIgnoreProperties(value = { "matricula", "hibernateLazyInitializer", "handler" }, allowSetters = true)
 	private List<Matricula_Pagos> pagos;
 
+
+
 	public Matricula() {
 		this.pagos = new ArrayList<Matricula_Pagos>();
 	}

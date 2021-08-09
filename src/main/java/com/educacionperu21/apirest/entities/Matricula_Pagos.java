@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "matricula_pagos")
-public class Matricula_Pagos implements Serializable, GenericEntity<Integer> {
+public class Matricula_Pagos implements Serializable, IGenericStatusClass<Integer> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +42,7 @@ public class Matricula_Pagos implements Serializable, GenericEntity<Integer> {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Pension pension;
 
-    @Null
+
     private double mora;
 
     @ManyToOne(fetch = FetchType.LAZY)
