@@ -10,4 +10,10 @@ import java.util.Optional;
 public interface IPagoService extends GenericServiceWithStatus<Pago, Integer> {
 
     Integer findLastId();
+
+    int anularPago(Integer idPago);
+
+    double getGanancias();
+
+    double getGananciasBetweenFechas(String estado, String fecha_inicio, String fecha_fin);
 }

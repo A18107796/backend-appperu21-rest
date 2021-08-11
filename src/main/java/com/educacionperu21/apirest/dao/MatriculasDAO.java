@@ -3,6 +3,7 @@ package com.educacionperu21.apirest.dao;
 import java.util.List;
 import java.util.Optional;
 
+import com.educacionperu21.apirest.entities.Pago;
 import com.educacionperu21.apirest.enums.Estado;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -24,9 +25,11 @@ public interface MatriculasDAO extends GenericJPAStatusRepository<Matricula, Int
 	@Query(value = "select m from Matricula m where m.estudiante.num_doc = ?1")
 	List<Matricula> getMatriculaByEstudiante(String dni);
 
+	@Query("select count(e) from Matricula e")
+	int getCountMatriculas();
+
 	@Transactional
 	@Modifying
 	@Query("update Matricula m set m.estado = ?1 where m.id = ?2")
 	int updateEstado(Estado estado, Integer id);
-
 }

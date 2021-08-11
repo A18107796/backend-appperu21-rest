@@ -1,7 +1,10 @@
 package com.educacionperu21.apirest.entities;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -105,6 +108,29 @@ public class Matricula_Pagos implements Serializable, IGenericStatusClass<Intege
 
     public void setMora(double mora) {
         this.mora = mora;
+    }
+
+    public long getDiasVencido() {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        TimeUnit time = TimeUnit.DAYS;
+        Date fecha = new Date();
+        Date hoy = new Date();
+        long daysDiference = 0;
+        try {
+            hoy = sdf.parse(sdf.format(hoy));
+            fecha = sdf.parse(this.fecha_venc.toString());
+            long diff = hoy.getTime() - fecha.getTime();
+            daysDiference = time.convert(diff, TimeUnit.MILLISECONDS);
+
+            if (daysDiference <= 0) {
+                daysDiference = 0;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return daysDiference;
     }
 
     /**

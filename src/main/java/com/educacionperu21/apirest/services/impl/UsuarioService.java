@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.educacionperu21.apirest.entities.Rol;
 import com.educacionperu21.apirest.exceptions.BadRequestException;
+import com.educacionperu21.apirest.exceptions.NotFoundException;
 import com.educacionperu21.apirest.services.IEmpleadoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,14 +30,13 @@ public class UsuarioService extends GenericServiceImpl<Usuario, IUsuarioDao, Int
         implements IUsuarioService, UserDetailsService {
 
 
-
     private Logger logger = LoggerFactory.getLogger(UsuarioService.class);
 
     public final static List<Rol> CARGO_EMPLADO = Arrays.asList(new Rol(4));
     public final static List<Rol> CARGO_CAJA = Arrays.asList(new Rol(4), new Rol(6), new Rol(2));
     public final static List<Rol> CARGO_INFORMES = Arrays.asList(new Rol(4), new Rol(2));
     public final static List<Rol> CARGO_SECRETARIA = Arrays.asList(new Rol(4), new Rol(5), new Rol(2));
-    public final static List<Rol> CARGO_CORDINACIONACADEMICA = Arrays.asList(new Rol(4), new Rol(3), new Rol(5), new Rol(5));
+    public final static List<Rol> CARGO_CORDINACIONACADEMICA = Arrays.asList(new Rol(2), new Rol(3), new Rol(4), new Rol(5), new Rol(6));
 
 
     @Override
@@ -52,6 +52,17 @@ public class UsuarioService extends GenericServiceImpl<Usuario, IUsuarioDao, Int
     public Usuario createUser(Usuario usuario) {
         return null;
     }
+
+    @Override
+    public int changeStatusUser(Integer id, boolean enabled) {
+        return dao.existsById(id) ? dao.updateEstado(enabled, id) : null;
+    }
+
+    @Override
+    public Usuario update(Usuario usuario) {
+        return dao.save(usuario);
+    }
+
 
     @Override
     @Transactional
@@ -72,5 +83,6 @@ public class UsuarioService extends GenericServiceImpl<Usuario, IUsuarioDao, Int
         return new User(username, usuario.getPassword(), usuario.isEnabled(), true, true, true, authorities);
 
     }
+
 
 }

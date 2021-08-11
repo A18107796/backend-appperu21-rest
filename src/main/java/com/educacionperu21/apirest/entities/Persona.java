@@ -91,7 +91,7 @@ public abstract class Persona implements IGenericStatusClass<Integer>, java.io.S
 		if(this instanceof Estudiante){
 			this.estado = Estado.PENDIENTE;
 		}else{
-			this.estado = Estado.INACTIVO;
+			this.estado = Estado.ACTIVO;
 		}
 	}
 

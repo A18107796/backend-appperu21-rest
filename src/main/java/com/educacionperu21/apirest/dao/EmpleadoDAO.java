@@ -17,4 +17,7 @@ public interface EmpleadoDAO extends GenericJPAStatusRepository<Empleado, Intege
 
 	@Query(nativeQuery = true, value = "select e.num_doc from empleados e where e.num_doc = ?1")
 	List<String> dniExists(String dni);
+
+	@Query("select count(e) from Empleado e")
+	int getCountStudents();
 }

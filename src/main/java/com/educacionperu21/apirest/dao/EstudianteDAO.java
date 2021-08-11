@@ -27,4 +27,9 @@ public interface EstudianteDAO extends GenericJPAStatusRepository<Estudiante, In
     @Modifying
     @Query("update Estudiante e set e.estado = ?1 where e.id = ?2")
     int updateEstado(Estado estado, Integer id);
+
+    @Query("select count(e) from Estudiante e")
+    int getCountStudents();
+
+
 }

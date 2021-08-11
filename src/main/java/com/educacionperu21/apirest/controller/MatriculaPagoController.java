@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
 import java.net.http.HttpResponse;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @CrossOrigin(origins = ControllerPaths.PATH_ANGULAR_ORIGIN)
@@ -24,14 +26,29 @@ public class MatriculaPagoController extends GenericControllerWithStatus<Matricu
 
     @GetMapping("/recent/{id}")
     public ResponseEntity<?> getRecentDeudas(@PathVariable("id") Integer id, @RequestParam(required = false, name = "estado", defaultValue = ("PENDIENTE")) Estado estado) {
-        System.out.println(id);
+        Map<String, Object> response = new HashMap<>();
         Optional<Matricula_Pagos> mp = service.getMatriculaPagoCercana(id, estado);
 
-        if(mp.isEmpty()){
-            throw new NotFoundException("No exise, verifique datos");
+        if (mp.get().getId() == null) {
+            response.put("mensaje", "sin deudas");
+        }else{
+            response.put("pago", mp.get());
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(mp.get());
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @PutMapping("/verify-pagos")
+    public ResponseEntity<?> checkDeudas() {
+        return ResponseEntity.status(HttpStatus.OK).body(service.verifyCuotas());
+    }
+
+    @GetMapping("/verify-deudas/{id}")
+    public ResponseEntity<?> hasDeudas(@PathVariable("id") Integer id) {
+        Map<String, Integer> response = new HashMap<>();
+        int numCuotas = service.hasDeudas(id);
+        response.put("deudas", numCuotas);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
 }

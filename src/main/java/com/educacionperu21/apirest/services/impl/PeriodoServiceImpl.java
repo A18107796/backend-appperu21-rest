@@ -88,7 +88,7 @@ public class PeriodoServiceImpl extends GenericServiceWithStatusImpl<Periodo, Pe
 
     @Override
     public List<Periodo> filtrar_periodo_reciente(String estado) {
-        if(estado == null){
+        if (estado == null) {
             estado = Estado.ACTIVO.toString();
         }
         return dao.filtrar_periodo_reciente(estado);
@@ -101,7 +101,7 @@ public class PeriodoServiceImpl extends GenericServiceWithStatusImpl<Periodo, Pe
 
     @Override
     public int updateStatus(Estado estado, Integer id) {
-        if(!dao.existsById(id)){
+        if (!dao.existsById(id)) {
             throw new NotFoundException("El PERIODO NO EXISTE, VERIFIQUE DATOS");
         }
 
@@ -111,15 +111,15 @@ public class PeriodoServiceImpl extends GenericServiceWithStatusImpl<Periodo, Pe
     @Override
     @Transactional
     public boolean updateAllStatus(List<Periodo> periodos, Estado estado) {
-        if(periodos.isEmpty()){
+        if (periodos.isEmpty()) {
             throw new BadRequestException("ENVIE UNA LISTA DE PERIODOS VALIDA");
         }
-        try{
-            for (Periodo p: periodos){
+        try {
+            for (Periodo p : periodos) {
                 updateStatus(estado, p.getId());
             }
             return true;
-        }catch (Exception ex){
+        } catch (Exception ex) {
             return false;
         }
     }
@@ -144,6 +144,9 @@ public class PeriodoServiceImpl extends GenericServiceWithStatusImpl<Periodo, Pe
             if (lp.get(i).getFecha_inicio().getTime() > hoy.getTime() && lp.get(i).getEstado() == Estado.ACTIVO) {
                 updateStatus(Estado.PENDIENTE, lp.get(i).getId());
             }
+            if (lp.get(i).getFecha_fin().getTime() < hoy.getTime() && (lp.get(i).getEstado() != Estado.CULMINADO || lp.get(i).getEstado() == Estado.PENDIENTE)) {
+                updateStatus(Estado.CULMINADO, lp.get(i).getId());
+            }
         }
         return true;
     }
@@ -152,18 +155,18 @@ public class PeriodoServiceImpl extends GenericServiceWithStatusImpl<Periodo, Pe
     public Periodo checkCercanoPeriodoToIncripcion() {
         List<Periodo> lp = dao.findAll(Sort.by(Sort.Direction.ASC, "id"));
 
-        lp.forEach( p ->{
+        lp.forEach(p -> {
             System.out.println(p.getId());
         });
 
 
         lp = dao.filtrar_periodo_reciente(Estado.INSCRIPCION_ABIERTA.toString());
-        if(!lp.isEmpty()){
+        if (!lp.isEmpty()) {
             throw new NotFoundException("Existe un periodo en proceso de INSCRIPCION");
         }
 
         lp = dao.filtrar_periodo_reciente("PENDIENTE");
-        if(lp.isEmpty()){
+        if (lp.isEmpty()) {
             throw new NotFoundException("No existen periodos");
         }
 
