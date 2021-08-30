@@ -66,12 +66,17 @@ public class MatriculaServiceImpl extends GenericServiceWithStatusImpl<Matricula
         if (OldMatricula.isPresent()) {
             throw new BadRequestException(("El estudiante ya fue matriculado en este periodo, verifique datos."));
         }
+
         List<Pension> pensionesRegistradas = pensionService.registerPensiones(alumno.getNum_cuotas(), 960);
         if (pensionesRegistradas == null || pensionesRegistradas.isEmpty()) {
             throw new BadRequestException("Ocurrio un error, intentelo denuevo");
         }
         alumno.setFecha_reg(new Date());
         Optional<Periodo> periodoBD = periodoService.findById(alumno.getPeriodo().getId());
+        if (periodoBD.get().getEstado() != Estado.INSCRIPCION_ABIERTA) {
+            throw new BadRequestException("El Periodo no es valido o no existen INSCRIPCIONES ABIERTAS");
+        }
+
         alumno.setPeriodo(periodoBD.get());
         int res = estudianteService.updateEstado(Estado.MATRICULADO, alumno.getEstudiante().getId());
         if (res <= 0) {

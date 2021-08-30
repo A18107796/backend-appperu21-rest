@@ -32,5 +32,10 @@ abstract class ControllerPaths {
 
 	protected static final String PATH_TIPO_COMPROBANTE = MAIN_PATH + "/tipos-comprobante";
 
+	protected static final String PATH_USUARIO = MAIN_PATH + "/usuarios";
+
+
+	protected static final String PATH_QUERYS = MAIN_PATH + "/dashboard";
+
 
 }

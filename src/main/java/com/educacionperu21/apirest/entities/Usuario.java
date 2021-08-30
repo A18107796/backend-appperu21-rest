@@ -96,6 +96,18 @@ public class Usuario implements Serializable, GenericEntity<Integer> {
 		this.empleado = empleado;
 	}
 
+
+	public void addRol(Rol rol) {
+		this.roles.add(rol);
+	}
+
+	public void removeRol(Rol rol) {
+		this.roles.remove(rol);
+	}
+
+	public void clearArray() {
+		this.roles.clear();
+	}
 	/**
 	 * 
 	 */

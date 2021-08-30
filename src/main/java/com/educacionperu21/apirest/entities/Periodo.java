@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "periodos")
-public class Periodo implements Serializable, IGenericStatusClass<Integer> {
+public class Periodo implements Serializable, IGenericStatusClass<Integer>, Comparable<Periodo> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +37,10 @@ public class Periodo implements Serializable, IGenericStatusClass<Integer> {
     @NotNull(message = MessagesValidation.CAMPO_VACIO)
     @Column(nullable = false, unique = false)
     private int anio;
+
+
+    @Column(nullable = false)
+    private int anio_academico;
 
     public Periodo() {
     }
@@ -91,9 +95,27 @@ public class Periodo implements Serializable, IGenericStatusClass<Integer> {
         this.anio = anio;
     }
 
+    public int getAnio_academico() {
+        return anio_academico;
+    }
+
+    public void setAnio_academico(int anio_academico) {
+        this.anio_academico = anio_academico;
+    }
+
+    @Override
+    public int compareTo(Periodo o) {
+        if (o.getFecha_inicio().getTime() > fecha_inicio.getTime()) {
+            return -1;
+        }else if(o.getFecha_inicio().getTime() >= fecha_inicio.getTime()){
+            return 0;
+        }else{
+            return 1;
+        }
+    }
+
     /**
      *
      */
     private static final long serialVersionUID = 1L;
-
 }

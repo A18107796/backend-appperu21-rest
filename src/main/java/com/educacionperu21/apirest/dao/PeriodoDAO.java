@@ -27,6 +27,7 @@ public interface PeriodoDAO extends GenericJPAStatusRepository<Periodo, Integer>
 	List<Periodo> check_periodo(@Param("status") String estado);
 
 
+
 	@Transactional
 	@Modifying
 	@Query("update Periodo p set p.estado = ?1 where p.id = ?2")

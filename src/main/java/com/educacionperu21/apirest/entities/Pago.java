@@ -75,7 +75,7 @@ public class Pago implements Serializable, IGenericStatusClass<Integer> {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_pago")
-    @JsonIgnoreProperties({"pagos", "hibernateLazyInitializer", "handler"})
+    @JsonIgnoreProperties({"pago.matricula","pagos", "hibernateLazyInitializer", "handler"})
     private List<PagoDetalles> pagoDetalles;
 
 

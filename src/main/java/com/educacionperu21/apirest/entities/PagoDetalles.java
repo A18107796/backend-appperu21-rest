@@ -2,14 +2,7 @@ package com.educacionperu21.apirest.entities;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -29,8 +22,10 @@ public class PagoDetalles implements Serializable, GenericEntity<Integer> {
     @NotNull(message = "Usted debe seleccionar un Pago")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_matricula_pago")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonIgnoreProperties({"pago.matricula", "hibernateLazyInitializer", "handler"})
     private Matricula_Pagos pago;
+
+    private double cargos;
 
     public Integer getId() {
         return id;
@@ -62,6 +57,14 @@ public class PagoDetalles implements Serializable, GenericEntity<Integer> {
 
     public void setPago(Matricula_Pagos pago) {
         this.pago = pago;
+    }
+
+    public double getCargos() {
+        return cargos;
+    }
+
+    public void setCargos(double cargos) {
+        this.cargos = cargos;
     }
 
     /**

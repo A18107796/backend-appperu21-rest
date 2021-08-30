@@ -1,6 +1,7 @@
 package com.educacionperu21.apirest.services.impl;
 
 import com.educacionperu21.apirest.dao.PagoDAO;
+import com.educacionperu21.apirest.entities.Matricula;
 import com.educacionperu21.apirest.entities.Matricula_Pagos;
 import com.educacionperu21.apirest.entities.Pago;
 import com.educacionperu21.apirest.enums.Estado;
@@ -70,9 +71,35 @@ public class PagoServiceImpl extends GenericServiceWithStatusImpl<Pago, PagoDAO,
     @Override
     public Integer findLastId() {
         Optional<Integer> id = dao.findLastId();
-        if(id.isEmpty()){
+        if (id.isEmpty()) {
             return 0;
         }
         return id.get();
+    }
+
+    @Override
+    @Transactional
+    public int anularPago(Integer idPago) {
+        if (!dao.existsById(idPago)) {
+            throw new NotFoundException("Pago no existe");
+        }
+        Pago pagoBD = dao.findById(idPago).get();
+        final Integer idMatricula = pagoBD.getPagoDetalles().get(0).getPago().getMatricula().getId();
+
+        pagoBD.getPagoDetalles().forEach(d -> {
+            sMPago.ChangeStatus(d.getPago().getId(), Estado.PENDIENTE);
+            sMPago.updateFecha(d.getPago().getId());
+        });
+        return dao.updateEstado(Estado.ANULADO, pagoBD.getId());
+    }
+
+    @Override
+    public double getGanancias() {
+        return dao.getGanancias();
+    }
+
+    @Override
+    public double getGananciasBetweenFechas(String estado, String fecha_inicio, String fecha_fin) {
+        return dao.getGananciasBetweenFechas(estado, fecha_inicio, fecha_fin);
     }
 }
