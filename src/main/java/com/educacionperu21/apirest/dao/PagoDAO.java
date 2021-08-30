@@ -22,7 +22,7 @@ public interface PagoDAO extends GenericJPAStatusRepository<Pago, Integer> {
     @Query("update Pago m set m.estado = ?1 where m.id = ?2")
     int updateEstado(Estado estado, Integer id);
 
-    @Query(value ="select sum(a.subtotal) from pagos_detalles a left join pagos b on b.id = a.id_pago where b.estado = 'PAGADO'", nativeQuery = true)
+    @Query(value ="select COALESCE(sum(a.subtotal),0) from pagos_detalles a left join pagos b on b.id = a.id_pago where b.estado = 'PAGADO'", nativeQuery = true)
     double getGanancias();
 
     @Query(value ="CALL filtrar_ganancias(?1,?2,?3)", nativeQuery = true)

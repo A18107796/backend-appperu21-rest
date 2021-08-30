@@ -123,7 +123,7 @@ public class Matricula_Pagos implements Serializable, IGenericStatusClass<Intege
             long diff = hoy.getTime() - fecha.getTime();
             daysDiference = time.convert(diff, TimeUnit.MILLISECONDS);
 
-            if (daysDiference <= 0) {
+            if (0 > daysDiference) {
                 daysDiference = 0;
             }
         } catch (ParseException e) {

@@ -63,6 +63,11 @@ public class PeriodoController extends GenericControllerWithStatus<Periodo, Inte
 
     @GetMapping("/check-periodo-cercano")
     public ResponseEntity<?> checkPeriodoCercano(){
+        Periodo p = service.checkCercanoPeriodoToIncripcion();
+        if(p == null){
+            return ResponseEntity.status(HttpStatus.OK).body(null);
+        }
+
         return ResponseEntity.status(HttpStatus.OK).body(service.checkCercanoPeriodoToIncripcion());
     }
 

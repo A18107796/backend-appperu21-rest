@@ -66,6 +66,7 @@ public class MatriculaServiceImpl extends GenericServiceWithStatusImpl<Matricula
         if (OldMatricula.isPresent()) {
             throw new BadRequestException(("El estudiante ya fue matriculado en este periodo, verifique datos."));
         }
+
         List<Pension> pensionesRegistradas = pensionService.registerPensiones(alumno.getNum_cuotas(), 960);
         if (pensionesRegistradas == null || pensionesRegistradas.isEmpty()) {
             throw new BadRequestException("Ocurrio un error, intentelo denuevo");

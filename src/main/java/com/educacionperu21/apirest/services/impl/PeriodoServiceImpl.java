@@ -1,5 +1,6 @@
 package com.educacionperu21.apirest.services.impl;
 
+import java.sql.Array;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -127,17 +128,29 @@ public class PeriodoServiceImpl extends GenericServiceWithStatusImpl<Periodo, Pe
     @Override
     @Transactional
     public boolean sincronizarPeriodos() {
-        List<Periodo> lp = dao.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        List<Periodo> lp = dao.filtrar_periodo_reciente(Estado.INSCRIPCION_ABIERTA.toString());
         Date hoy = new Date();
 
-        for (int i = 0; i < lp.size(); i++) {
+        if (!lp.isEmpty()) {
+            if (lp.size() > 1) {
+                System.out.println("MAS DE UNO");
+                Collections.sort(lp);
+                for (Periodo p : lp) {
+                    if (p.getId() != lp.get(0).getId()) {
+                        updateStatus(Estado.PENDIENTE, p.getId());
+                    }
+                }
+            }
+        }
 
+        lp = dao.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        Collections.sort(lp);
+        for (int i = 0; i < lp.size(); i++) {
             if (hoy.getTime() > lp.get(i).getFecha_inicio().getTime() && lp.get(i).getEstado() == Estado.PENDIENTE) {
                 updateStatus(Estado.ACTIVO, lp.get(i).getId());
             }
 
             if (hoy.getTime() > lp.get(i).getFecha_inicio().getTime() && lp.get(i).getEstado() == Estado.INSCRIPCION_ABIERTA) {
-                System.out.println("TRUE");
                 updateStatus(Estado.ACTIVO, lp.get(i).getId());
             }
 
@@ -147,31 +160,65 @@ public class PeriodoServiceImpl extends GenericServiceWithStatusImpl<Periodo, Pe
             if (lp.get(i).getFecha_fin().getTime() < hoy.getTime() && (lp.get(i).getEstado() != Estado.CULMINADO || lp.get(i).getEstado() == Estado.PENDIENTE)) {
                 updateStatus(Estado.CULMINADO, lp.get(i).getId());
             }
+
+            if (lp.get(i).getFecha_fin().getTime() > hoy.getTime() && (lp.get(i).getEstado() == Estado.CULMINADO)) {
+                updateStatus(Estado.PENDIENTE, lp.get(i).getId());
+            }
         }
+        lp = dao.findAll();
+        Collections.sort(lp);
+
+        List<Integer> numbers = new ArrayList<>();
+        for(int i = 0; i < lp.size(); i++){
+            System.out.println(lp.get(i).getFecha_inicio());
+            if(lp.get(i).getEstado() == Estado.PENDIENTE){
+                numbers.add(i);
+            }
+
+            if(lp.get(i).getEstado() == Estado.INSCRIPCION_ABIERTA){
+                if(numbers.size() > 0){
+                    System.out.println("Existen Periodos PENDIENTES ATRAS");
+                    updateStatus(Estado.PENDIENTE, lp.get(i).getId());
+                }
+            }
+            /* if(lp.get(i).getEstado() == Estado.P)*/
+        }
+
+
         return true;
     }
 
     @Override
     public Periodo checkCercanoPeriodoToIncripcion() {
-        List<Periodo> lp = dao.findAll(Sort.by(Sort.Direction.ASC, "id"));
-
-        lp.forEach(p -> {
-            System.out.println(p.getId());
-        });
-
-
-        lp = dao.filtrar_periodo_reciente(Estado.INSCRIPCION_ABIERTA.toString());
-        if (!lp.isEmpty()) {
-            throw new NotFoundException("Existe un periodo en proceso de INSCRIPCION");
+        Date hoy = new Date();
+        List<Periodo> lp = dao.filtrar_periodo_reciente(Estado.INSCRIPCION_ABIERTA.toString());
+      /*  if (!lp.isEmpty()) {
+            if (lp.size() > 1) {
+                System.out.println("MAS DE UNO");
+                Collections.sort(lp);
+                for (Periodo p : lp) {
+                    if (p.getId() != lp.get(0).getId()) {
+                        updateStatus(Estado.PENDIENTE, p.getId());
+                    }
+                }
+                return null;
+            } else {
+                   return null;
+            }
         }
+*/
 
         lp = dao.filtrar_periodo_reciente("PENDIENTE");
         if (lp.isEmpty()) {
-            throw new NotFoundException("No existen periodos");
+            return null;
         }
 
-        Periodo p = lp.get(0);
-        return p;
+        for(Periodo periodo: lp){
+            if(periodo.getFecha_inicio().getTime() > hoy.getTime()){
+                return periodo;
+            }
+        }
+        return null;
     }
 
 
