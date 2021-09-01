@@ -39,86 +39,92 @@ import com.educacionperu21.apirest.services.IEspecializacionTipoService;
 @RestController
 @RequestMapping(path = ControllerPaths.PATH_ESPECIALIZACION)
 public class EspecializacionRestController
-		extends GenericControllerWithStatus<Especializacion, Integer, IEspecializacionService> {
+        extends GenericControllerWithStatus<Especializacion, Integer, IEspecializacionService> {
 
-	@Autowired
-	private IEspecializacionTipoService esp_tipo_service;
+    @Autowired
+    private IEspecializacionTipoService esp_tipo_service;
 
-	public EspecializacionRestController() {
-		this.type = Especializacion.class;
-	}
+    public EspecializacionRestController() {
+        this.type = Especializacion.class;
+    }
 
-	@PutMapping("/edit/{id}")
-	public ResponseEntity<?> update(@Valid @RequestBody Especializacion especializacion, BindingResult result,
-			@PathVariable("id") Integer id_especializacion) {
-		Map<String, Object> response = new HashMap<>();
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<?> update(@Valid @RequestBody Especializacion especializacion, BindingResult result,
+                                    @PathVariable("id") Integer id_especializacion) {
+        Map<String, Object> response = new HashMap<>();
 
-		try {
-			Optional<Especializacion> o = service.findById(id_especializacion);
+        try {
+            Optional<Especializacion> o = service.findById(id_especializacion);
 
-			if (!o.isPresent()) {
-				throw new NotFoundException("La especializacion no existe");
-			}
+            if (o.isEmpty()) {
+                throw new NotFoundException("La especializacion no existe");
+            }
 
-			if (result.hasErrors()) {
-				Map<String, String> errors = new HashMap<String, String>();
-				errors = result.getFieldErrors().stream().collect(
-						Collectors.toMap(FieldError::getField, DefaultMessageSourceResolvable::getDefaultMessage));
-				response.put("errors", errors);
-				throw new BadRequestException(errors);
-			}
+            if (result.hasErrors()) {
+                Map<String, String> errors = new HashMap<String, String>();
+                errors = result.getFieldErrors().stream().collect(
+                        Collectors.toMap(FieldError::getField, DefaultMessageSourceResolvable::getDefaultMessage));
+                response.put("errors", errors);
+                throw new BadRequestException(errors);
+            }
 
-			Especializacion especializacionDB = o.get();
-			especializacionDB.setEstado(especializacion.getEstado());
-			especializacionDB.setNombre(especializacion.getNombre());
-			especializacionDB.setTipo_especializacion(especializacion.getTipo_especializacion());
-			return ResponseEntity.status(HttpStatus.CREATED).body(this.service.save(especializacionDB));
+            Especializacion especializacionDB = o.get();
+            especializacionDB.setEstado(especializacion.getEstado());
+            especializacionDB.setNombre(especializacion.getNombre());
+            especializacionDB.setTipo_especializacion(especializacion.getTipo_especializacion());
+            return ResponseEntity.status(HttpStatus.CREATED).body(this.service.save(especializacionDB));
 
-		} catch (DataAccessException e) {
-			throw new ServiceUnavailableException(e.getMessage());
-		}
-	}
+        } catch (DataAccessException e) {
+            throw new ServiceUnavailableException(e.getMessage());
+        }
+    }
 
-	@GetMapping("/tipos")
-	private ResponseEntity<?> listar() {
-		return ResponseEntity.ok().body(esp_tipo_service.findAll());
-	}
 
-	@PutMapping("/{id}/save-changes")
-	private ResponseEntity<?> saveChanges(@Null @RequestBody List<Curso> cursos,
-			@PathVariable("id") Integer id_especializacion) {
-		Optional<Especializacion> o = this.service.findById(id_especializacion);
-		if (o.isEmpty()) {
-			throw new NotFoundException("La/el " + getClassName() + " no existe.");
-		}
-		Especializacion espBD = o.get();
-		espBD.clearCursos();
-		cursos.forEach(espBD::addCurso);
-		return ResponseEntity.status(HttpStatus.CREATED).body(this.service.update(espBD));
-	}
+    @GetMapping("/periodos/{idPeriodo}")
+    public ResponseEntity<?> getStudiantesMatriculadosXPeriodo(@PathVariable(name = "idPeriodo") Integer idInteger) {
+        return ResponseEntity.ok(service.selectEspecializacionesByPeriodo(idInteger));
+    }
 
-	@PutMapping("/{id}/add-cursos")
-	private ResponseEntity<?> addCursos(@Null @RequestBody List<Curso> cursos,
-			@PathVariable("id") Integer id_especializacion) {
-		Optional<Especializacion> o = this.service.findById(id_especializacion);
-		if (o.isEmpty()) {
-			throw new NotFoundException("La/el " + getClassName() + " no existe.");
-		}
-		Especializacion espBD = o.get();
-		cursos.forEach(espBD::addCurso);
-		return ResponseEntity.status(HttpStatus.CREATED).body(this.service.update(espBD));
-	}
+    @GetMapping("/tipos")
+    private ResponseEntity<?> listar() {
+        return ResponseEntity.ok().body(esp_tipo_service.findAll());
+    }
 
-	@PutMapping("/{id}/eliminar-curso")
-	private ResponseEntity<?> eliminarCursos(@RequestBody Curso cursos,
-			@PathVariable("id") Integer id_especializacion) {
-		Optional<Especializacion> o = this.service.findById(id_especializacion);
-		if (o.isEmpty()) {
-			throw new NotFoundException("La/el " + getClassName() + " no existe.");
-		}
-		Especializacion espBD = o.get();
-		espBD.removeCurso(cursos);
-		return ResponseEntity.status(HttpStatus.CREATED).body(this.service.update(espBD));
-	}
+    @PutMapping("/{id}/save-changes")
+    private ResponseEntity<?> saveChanges(@Null @RequestBody List<Curso> cursos,
+                                          @PathVariable("id") Integer id_especializacion) {
+        Optional<Especializacion> o = this.service.findById(id_especializacion);
+        if (o.isEmpty()) {
+            throw new NotFoundException("La/el " + getClassName() + " no existe.");
+        }
+        Especializacion espBD = o.get();
+        espBD.clearCursos();
+        cursos.forEach(espBD::addCurso);
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.service.update(espBD));
+    }
+
+    @PutMapping("/{id}/add-cursos")
+    private ResponseEntity<?> addCursos(@Null @RequestBody List<Curso> cursos,
+                                        @PathVariable("id") Integer id_especializacion) {
+        Optional<Especializacion> o = this.service.findById(id_especializacion);
+        if (o.isEmpty()) {
+            throw new NotFoundException("La/el " + getClassName() + " no existe.");
+        }
+        Especializacion espBD = o.get();
+        cursos.forEach(espBD::addCurso);
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.service.update(espBD));
+    }
+
+    @PutMapping("/{id}/eliminar-curso")
+    private ResponseEntity<?> eliminarCursos(@RequestBody Curso cursos,
+                                             @PathVariable("id") Integer id_especializacion) {
+        Optional<Especializacion> o = this.service.findById(id_especializacion);
+        if (o.isEmpty()) {
+            throw new NotFoundException("La/el " + getClassName() + " no existe.");
+        }
+        Especializacion espBD = o.get();
+        espBD.removeCurso(cursos);
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.service.update(espBD));
+    }
 
 }

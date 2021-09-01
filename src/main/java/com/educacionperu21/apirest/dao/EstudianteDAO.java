@@ -31,5 +31,16 @@ public interface EstudianteDAO extends GenericJPAStatusRepository<Estudiante, In
     @Query("select count(e) from Estudiante e")
     int getCountStudents();
 
+    @Query(nativeQuery = true, value = "select * from estudiantes e where EXISTS(select * from matriculas m where m.id_estudiante = e.id);")
+    List<Estudiante> getEstudentsMatriculados();
+
+    @Query(nativeQuery = true, value = "select * from estudiantes e where EXISTS(select * from matriculas m where m.id_estudiante = e.id and m.id_periodo = ?1)")
+    List<Estudiante> getEstudentsMatriculadosByPeriodo(Integer idPeriodo);
+
+    @Query(nativeQuery = true, value = "select * from estudiantes e where EXISTS(select * from matriculas m where m.id_estudiante = e.id and m.id_periodo = ?1 and m.id_especializacion = ?2)")
+    List<Estudiante> getEstudentsMatriculadosByPeriodoAndIdEspecializacion(Integer idPeriodo, Integer idEspecializacion);
+
+    @Query(nativeQuery = true, value = "select count(*) from estudiantes e where EXISTS(select * from matriculas m where m.id_estudiante = e.id and m.id_periodo = ?1)")
+    int getCountStudentsMatriculados(Integer idPeriodo);
 
 }

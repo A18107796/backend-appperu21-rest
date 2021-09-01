@@ -15,4 +15,8 @@ public interface IMatriculaService extends GenericServiceWithStatus<Matricula, I
 	Optional<Matricula> findStudentMatriculado(Integer idStudent);
 
 	List<Matricula> findMatriculasByDNI(String dni);
+
+	List<Matricula> getEstudentsMatriculadosByPeriodo(Integer idPeriodo);
+
+	List<Matricula> getEstudentsMatriculadosByPeriodoAndIdEspecializacion(Integer idPeriodo, Integer idEspecializacion);
 }

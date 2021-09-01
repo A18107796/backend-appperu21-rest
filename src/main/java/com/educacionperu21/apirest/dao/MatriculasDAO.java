@@ -3,6 +3,7 @@ package com.educacionperu21.apirest.dao;
 import java.util.List;
 import java.util.Optional;
 
+import com.educacionperu21.apirest.entities.Estudiante;
 import com.educacionperu21.apirest.entities.Pago;
 import com.educacionperu21.apirest.enums.Estado;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -32,4 +33,12 @@ public interface MatriculasDAO extends GenericJPAStatusRepository<Matricula, Int
 	@Modifying
 	@Query("update Matricula m set m.estado = ?1 where m.id = ?2")
 	int updateEstado(Estado estado, Integer id);
+
+
+	@Query(nativeQuery = true, value = "select * from matriculas m where EXISTS(select * from estudiantes e where m.id_estudiante = e.id and m.id_periodo = ?1)")
+	List<Matricula> getEstudentsMatriculadosByPeriodo(Integer idPeriodo);
+
+	@Query(nativeQuery = true, value = "select * from matriculas m where EXISTS(select * from estudiantes e where m.id_estudiante = e.id and m.id_periodo = ?1 and m.id_especializacion = ?2)")
+	List<Matricula> getEstudentsMatriculadosByPeriodoAndIdEspecializacion(Integer idPeriodo, Integer idEspecializacion);
+
 }

@@ -58,4 +58,13 @@ public class MatriculaController extends GenericControllerWithStatus<Matricula, 
         return ResponseEntity.status(HttpStatus.OK).body(service.findMatriculasByDNI(dni));
     }
 
+    @GetMapping("/periodo/{idPeriodo}")
+    public ResponseEntity<?> getStudiantesMatriculadosXPeriodo(@PathVariable(name = "idPeriodo") Integer idInteger) {
+        return ResponseEntity.ok(service.getEstudentsMatriculadosByPeriodo(idInteger));
+    }
+
+    @GetMapping("/periodo/{idPeriodo}/especializacion/{idEspecializacion}")
+    public ResponseEntity<?> buscarEstudianteXDNI(@PathVariable(name = "idPeriodo") Integer idInteger, @PathVariable(name = "idEspecializacion") Integer idEspecializacion) {
+        return ResponseEntity.ok(service.getEstudentsMatriculadosByPeriodoAndIdEspecializacion(idInteger, idEspecializacion));
+    }
 }

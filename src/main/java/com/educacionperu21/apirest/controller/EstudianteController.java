@@ -46,10 +46,25 @@ public class EstudianteController extends GenericControllerWithStatus<Estudiante
 
     @GetMapping("/buscar/dni/{dni}")
     public ResponseEntity<?> buscarEstudianteXDNI(@PathVariable(name = "dni") String dni) {
-        if(dni == null || dni.length() <= 0){
+        if (dni == null || dni.length() <= 0) {
             throw new BadRequestException("Envie DNI valido");
         }
         return ResponseEntity.ok(service.findStudentByDNI(dni).get());
+    }
+
+    @GetMapping("/matriculados")
+    public ResponseEntity<?> getStudiantesMatriculadosXPeriodo() {
+        return ResponseEntity.ok(service.getEstudentsMatriculados());
+    }
+
+    @GetMapping("/matriculados/periodo/{idPeriodo}")
+    public ResponseEntity<?> getStudiantesMatriculadosXPeriodo(@PathVariable(name = "idPeriodo") Integer idInteger) {
+        return ResponseEntity.ok(service.getEstudentsMatriculadosByPeriodo(idInteger));
+    }
+
+    @GetMapping("/matriculados/periodo/{idPeriodo}/especializacion/{idEspecializacion}")
+    public ResponseEntity<?> buscarEstudianteXDNI(@PathVariable(name = "idPeriodo") Integer idInteger, @PathVariable(name = "idEspecializacion") Integer idEspecializacion) {
+        return ResponseEntity.ok(service.getEstudentsMatriculadosByPeriodoAndIdEspecializacion(idInteger, idEspecializacion));
     }
 
 

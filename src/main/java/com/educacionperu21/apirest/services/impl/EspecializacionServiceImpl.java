@@ -1,5 +1,6 @@
 package com.educacionperu21.apirest.services.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.educacionperu21.apirest.generics.service.GenericServiceWithStatusImpl;
@@ -45,6 +46,11 @@ public class EspecializacionServiceImpl extends GenericServiceWithStatusImpl<Esp
 	@Override
 	public boolean ExistsEspecializacion(Integer id) {
 		return this.dao.existsById(id);
+	}
+
+	@Override
+	public List<Especializacion> selectEspecializacionesByPeriodo(Integer idPeriodo) {
+		return dao.selectEspecializacionesByPeriodo(idPeriodo);
 	}
 
 }

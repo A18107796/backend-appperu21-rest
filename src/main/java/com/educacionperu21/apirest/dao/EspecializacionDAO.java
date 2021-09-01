@@ -16,4 +16,7 @@ public interface EspecializacionDAO extends GenericJPAStatusRepository<Especiali
 
     @Query(value = "select e.*, COUNT(*) as 'nveces' from matriculas m inner join especializaciones e on e.id = m.id_especializacion  GROUP by m.id_especializacion", nativeQuery = true)
     List<Map<Especializacion, Integer>> findMonstEspecialization();
+
+    @Query(value = "select * from especializaciones e where EXISTS(select * from matriculas m where m.id_especializacion = e.id and m.id_periodo = ?1)", nativeQuery = true)
+    List<Especializacion> selectEspecializacionesByPeriodo(Integer idPeriodo);
 }

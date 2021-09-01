@@ -5,6 +5,8 @@ import com.educacionperu21.apirest.enums.Estado;
 import com.educacionperu21.apirest.generics.service.GenericService;
 import com.educacionperu21.apirest.generics.service.GenericServiceWithStatus;
 
+import java.util.List;
+
 public interface IEspecializacionService extends GenericServiceWithStatus<Especializacion, Integer> {
 
 	boolean changeState(Especializacion especializacion);
@@ -12,4 +14,6 @@ public interface IEspecializacionService extends GenericServiceWithStatus<Especi
 	Especializacion update(Especializacion especializacion); 
 	
 	boolean ExistsEspecializacion(Integer id);
+
+	List<Especializacion> selectEspecializacionesByPeriodo(Integer idPeriodo);
 }

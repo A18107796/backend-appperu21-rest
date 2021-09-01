@@ -44,6 +44,7 @@ public class DashboardController {
         return ResponseEntity.ok(response);
     }
 
+
     @GetMapping("/count/")
     public ResponseEntity<?> getCount(@RequestParam(name = "value", defaultValue = "estudiante") String value) {
 

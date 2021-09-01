@@ -31,8 +31,8 @@ public class EstudianteServiceImpl extends GenericServiceWithStatusImpl<Estudian
 
     @Override
     public Optional<Estudiante> findStudentByDNI(String dni) {
-        Optional<Estudiante> estudianteDB =  dao.findStudentByDNI(dni);
-        if(estudianteDB.isEmpty()){
+        Optional<Estudiante> estudianteDB = dao.findStudentByDNI(dni);
+        if (estudianteDB.isEmpty()) {
             throw new NotFoundException("El estudiante no existe, Verifique DNI");
         }
         return estudianteDB;
@@ -42,4 +42,28 @@ public class EstudianteServiceImpl extends GenericServiceWithStatusImpl<Estudian
     public int updateEstado(Estado estado, Integer id) {
         return dao.updateEstado(estado, id);
     }
+
+    @Override
+    public List<Estudiante> getEstudentsMatriculadosByPeriodo(Integer idPeriodo) {
+        return dao.getEstudentsMatriculadosByPeriodo(idPeriodo);
+    }
+
+
+
+    @Override
+    public List<Estudiante> getEstudentsMatriculadosByPeriodoAndIdEspecializacion(Integer idPeriodo, Integer idEspecializacion) {
+        return dao.getEstudentsMatriculadosByPeriodoAndIdEspecializacion(idPeriodo, idEspecializacion);
+    }
+
+    @Override
+    public int getCountStudentsMatriculados(Integer idPeriodo) {
+        return dao.getCountStudentsMatriculados(idPeriodo);
+    }
+
+    @Override
+    public List<Estudiante> getEstudentsMatriculados() {
+        return dao.getEstudentsMatriculados();
+    }
+
+
 }

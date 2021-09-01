@@ -22,13 +22,19 @@ public interface PagoDAO extends GenericJPAStatusRepository<Pago, Integer> {
     @Query("update Pago m set m.estado = ?1 where m.id = ?2")
     int updateEstado(Estado estado, Integer id);
 
-    @Query(value ="select COALESCE(sum(a.subtotal),0) from pagos_detalles a left join pagos b on b.id = a.id_pago where b.estado = 'PAGADO'", nativeQuery = true)
+    @Query(value = "select COALESCE(sum(a.subtotal),0) from pagos_detalles a left join pagos b on b.id = a.id_pago where b.estado = 'PAGADO'", nativeQuery = true)
     double getGanancias();
 
-    @Query(value ="CALL filtrar_ganancias(?1,?2,?3)", nativeQuery = true)
+    @Query(value = "CALL filtrar_ganancias(?1,?2,?3)", nativeQuery = true)
     double getGananciasBetweenFechas(String estado, String fecha_inicio, String fecha_fin);
+
+
+    @Query(value = "select * from pagos a where a.estado = ?1 and a.fecha_reg  BETWEEN ?2 and ?3", nativeQuery = true)
+    List<Pago> getPagosBetweenFechas(String estado, String fecha_inicio, String fecha_fin);
 
 
     @Query(value = "select pagos.estado, COUNT(*) as 'nveces' from pagos GROUP BY pagos.estado", nativeQuery = true)
     List<Map<String, Integer>> findStadisticPagoStatus();
+
 }
+

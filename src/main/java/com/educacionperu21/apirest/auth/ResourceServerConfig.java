@@ -61,10 +61,10 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT, "/peru21/api/periodos/**").hasAnyRole(Roles.ADMIN.toString(), Roles.CORDINACIONACADEMICA.toString(), Roles.SECRETARIA.toString())
                 .antMatchers(HttpMethod.DELETE, "/peru21/api/periodos/**").hasAnyRole("ADMIN")
                 /* Reportes */
-                .antMatchers(HttpMethod.GET, "/peru21/api/dashboard/**").hasAnyRole(Roles.EMPLEADO.toString(), Roles.ADMIN.toString())
+                .antMatchers(HttpMethod.GET, "/peru21/api/dashboard/**").hasAnyRole(Roles.EMPLEADO.toString(), Roles.ADMIN.toString(), Roles.CORDINACIONACADEMICA.toString())
 
                 /* Matriculas */
-                .antMatchers(HttpMethod.GET, "/peru21/api/matriculas/**").hasAnyRole(Roles.ADMIN.toString(), Roles.CORDINACIONACADEMICA.toString(), Roles.CAJA.toString(), Roles.SECRETARIA.toString())
+                .antMatchers(HttpMethod.GET, "/peru21/api/matriculas/**").hasAnyRole(Roles.ADMIN.toString(), Roles.CORDINACIONACADEMICA.toString(), Roles.CAJA.toString(), Roles.SECRETARIA.toString(), Roles.INFORMES.toString())
                 .antMatchers(HttpMethod.POST, "/peru21/api/matriculas/**").hasAnyRole(Roles.ADMIN.toString(), Roles.CORDINACIONACADEMICA.toString(), Roles.SECRETARIA.toString(), Roles.CAJA.toString())
                 .antMatchers(HttpMethod.PUT, "/peru21/api/matriculas/**").hasAnyRole(Roles.ADMIN.toString(), Roles.CORDINACIONACADEMICA.toString(), Roles.SECRETARIA.toString())
                 .antMatchers(HttpMethod.DELETE, "/peru21/api/matriculas/**").hasAnyRole("ADMIN")

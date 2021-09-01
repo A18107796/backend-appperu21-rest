@@ -20,4 +20,14 @@ public interface IEstudianteService extends GenericServiceWithStatus<Estudiante,
     Optional<Estudiante> findStudentByDNI(String dni);
 
     int updateEstado(Estado estado, Integer id);
+
+    List<Estudiante> getEstudentsMatriculadosByPeriodo(Integer idPeriodo);
+
+
+
+    List<Estudiante> getEstudentsMatriculadosByPeriodoAndIdEspecializacion(Integer idPeriodo, Integer idEspecializacion);
+
+    int getCountStudentsMatriculados( Integer idPeriodo);
+
+    List<Estudiante> getEstudentsMatriculados();
 }

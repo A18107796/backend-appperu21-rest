@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -101,5 +102,10 @@ public class PagoServiceImpl extends GenericServiceWithStatusImpl<Pago, PagoDAO,
     @Override
     public double getGananciasBetweenFechas(String estado, String fecha_inicio, String fecha_fin) {
         return dao.getGananciasBetweenFechas(estado, fecha_inicio, fecha_fin);
+    }
+
+    @Override
+    public List<Pago> getPagosBetweenFechas(String estado, String fecha_inicio, String fecha_fin) {
+        return dao.getPagosBetweenFechas(estado, fecha_inicio, fecha_fin);
     }
 }

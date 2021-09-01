@@ -133,4 +133,14 @@ public class MatriculaServiceImpl extends GenericServiceWithStatusImpl<Matricula
 
     }
 
+    @Override
+    public List<Matricula> getEstudentsMatriculadosByPeriodo(Integer idPeriodo) {
+        return dao.getEstudentsMatriculadosByPeriodo(idPeriodo);
+    }
+
+    @Override
+    public List<Matricula> getEstudentsMatriculadosByPeriodoAndIdEspecializacion(Integer idPeriodo, Integer idEspecializacion) {
+        return dao.getEstudentsMatriculadosByPeriodoAndIdEspecializacion(idPeriodo, idEspecializacion);
+    }
+
 }

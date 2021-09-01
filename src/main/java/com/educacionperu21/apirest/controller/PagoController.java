@@ -59,4 +59,9 @@ public class PagoController extends GenericControllerWithStatus<Pago, Integer, I
         response.put("ganancias", ganancias);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
+    @GetMapping("/pagos/filter/{estado}")
+    public ResponseEntity<?> getPagosEntreFechas(@PathVariable("estado") Estado estado, @RequestParam("fecha_inicio") String inicio, @RequestParam("fecha_fin") String fin) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.getPagosBetweenFechas(estado.toString(),inicio, fin));
+    }
 }
